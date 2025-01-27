@@ -38,7 +38,7 @@ public partial class CharacterWrapper : Control
 		CloseBrack,
 		OpenCurlyBrack,
 		CloseCurlyBrack,
-		Degree=2,
+		Degree,
 		Minute,
 		Second,
 		Decimal,
