@@ -1,7 +1,6 @@
-res://main.tscn
-res://CharacterWrapper.cs
-res://ENBase.cs
-res://Expression.cs
-res://GUIManager.cs
-res://Main.cs
 res://NW.cs
+res://GUIManager.cs
+res://ENBase.cs
+res://Main.cs
+res://CharacterWrapper.cs
+res://Expression.cs

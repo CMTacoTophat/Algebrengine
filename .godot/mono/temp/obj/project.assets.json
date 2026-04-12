@@ -88,19 +88,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\murf1\\.nuget\\packages\\": {}
+    "/Users/aemurphy/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\MUALPHATHETA\\Mu Alpha Theta Project.csproj",
+      "projectUniqueName": "/Users/aemurphy/Desktop/Godot/MuAlphaThetaProject/Mu Alpha Theta Project.csproj",
       "projectName": "Mu Alpha Theta Project",
-      "projectPath": "D:\\MUALPHATHETA\\Mu Alpha Theta Project.csproj",
-      "packagesPath": "C:\\Users\\murf1\\.nuget\\packages\\",
-      "outputPath": "D:\\MUALPHATHETA\\.godot\\mono\\temp\\obj\\",
+      "projectPath": "/Users/aemurphy/Desktop/Godot/MuAlphaThetaProject/Mu Alpha Theta Project.csproj",
+      "packagesPath": "/Users/aemurphy/.nuget/packages/",
+      "outputPath": "/Users/aemurphy/Desktop/Godot/MuAlphaThetaProject/.godot/mono/temp/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\murf1\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "/Users/aemurphy/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
@@ -118,11 +118,6 @@
         "warnAsError": [
           "NU1605"
         ]
-      },
-      "restoreAuditProperties": {
-        "enableAudit": "true",
-        "auditLevel": "low",
-        "auditMode": "direct"
       }
     },
     "frameworks": {
@@ -153,26 +148,12 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "downloadDependencies": [
-          {
-            "name": "Microsoft.AspNetCore.App.Ref",
-            "version": "[6.0.36, 6.0.36]"
-          },
-          {
-            "name": "Microsoft.NETCore.App.Ref",
-            "version": "[6.0.36, 6.0.36]"
-          },
-          {
-            "name": "Microsoft.WindowsDesktop.App.Ref",
-            "version": "[6.0.36, 6.0.36]"
-          }
-        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.404\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/6.0.417/RuntimeIdentifierGraph.json"
       }
     }
   }

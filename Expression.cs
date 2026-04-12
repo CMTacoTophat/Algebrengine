@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 
 public partial class Expression : ENBase
 {
+    public bool IsInvalidResult = false;
     public Operation operation;
     public ENBase EN1;
     public ENBase EN2;
@@ -13,6 +14,9 @@ public partial class Expression : ENBase
         EN1 = n1;
         EN2 = n2;
         isExpression = true;
+    }
+    public Expression() {
+
     }
     
     public enum Operation {
@@ -59,8 +63,65 @@ public partial class Expression : ENBase
         }
     }
 
+    public class Algebraic {
+        public static bool unlocked = true;
+        public string name;
+        public Func<Expression, Expression> Use;
+        public Func<Expression, Expression> UseInverse;
+        public Algebraic(string n, Func<Expression, Expression> u) {
+            name = n;
+            Use = u;
+        }
+        public Algebraic(string n, Func<Expression, Expression> u, Func<Expression, Expression> uI) {
+            name = n;
+            Use = u;
+            UseInverse = uI;
+        }
+    }
+    Algebraic DistributiveProperty = new Algebraic("Distributive Property", 
+        (Expression e) => {
+            Expression newE = new Expression();
+            if (e.EN1.isExpression) {
+                newE.EN1 = new Expression(Operation.Multiplication, ((Expression)e.EN1).EN1, e.EN2);
+                newE.operation = Operation.Addition;
+                newE.EN2 = new Expression(Operation.Multiplication, ((Expression)e.EN1).EN2, e.EN2);
+            } else if (e.EN2.isExpression) {
+                newE.EN1 = new Expression(Operation.Multiplication, ((Expression)e.EN2).EN1, e.EN1);
+                newE.operation = Operation.Addition;
+                newE.EN2 = new Expression(Operation.Multiplication, ((Expression)e.EN2).EN2, e.EN1);
+            } else {
+                newE.IsInvalidResult = true;
+            }
+            return newE;
+        },
+
+        (Expression e) => {
+            Expression newE = new Expression();
+            if (!e.EN1.Stringify().Equals(e.EN2.Stringify())) {
+                newE.IsInvalidResult = true;
+                return newE;
+            }
+            //TODO: Implement inverse D. P. logic
+            return newE;
+        }
+    );
+
+    Algebraic ComutativeProperty = new Algebraic("Commutative Property",
+        (Expression e) => {
+            Expression newE = new Expression();
+            if (e.operation == Operation.Addition || e.operation == Operation.Multiplication) {
+                newE.EN1 = e.EN2;
+                newE.operation = e.operation;
+                newE.EN2 = e.EN1;
+            } else {
+                newE.IsInvalidResult = true;
+            }
+            return newE;
+        }
+    );
+
     //NOTE: does not make it look pretty, only meant to be read and interpreted in Main
-    public string Stringify(/*string encoding*/) {
+    public override string Stringify(/*string encoding*/) {
         string cumulator = "";
         StringifyRecurse(this, ref cumulator);
         return cumulator;

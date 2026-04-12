@@ -1,15 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "wjPfzp/tveM=",
+  "dgSpecHash": "3KK/qeSuiDKsN9rj2zjjNkRARAdzbu7Bki+GFN/2K2f3vLx4OOmDU8HONs6b7C94Pk8IZ+cUfXLX5JhyDtUPTQ==",
   "success": true,
-  "projectFilePath": "D:\\MUALPHATHETA\\Mu Alpha Theta Project.csproj",
+  "projectFilePath": "/Users/aemurphy/Desktop/Godot/MuAlphaThetaProject/Mu Alpha Theta Project.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\murf1\\.nuget\\packages\\godot.sourcegenerators\\4.3.0\\godot.sourcegenerators.4.3.0.nupkg.sha512",
-    "C:\\Users\\murf1\\.nuget\\packages\\godotsharp\\4.3.0\\godotsharp.4.3.0.nupkg.sha512",
-    "C:\\Users\\murf1\\.nuget\\packages\\godotsharpeditor\\4.3.0\\godotsharpeditor.4.3.0.nupkg.sha512",
-    "C:\\Users\\murf1\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.36\\microsoft.netcore.app.ref.6.0.36.nupkg.sha512",
-    "C:\\Users\\murf1\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.36\\microsoft.windowsdesktop.app.ref.6.0.36.nupkg.sha512",
-    "C:\\Users\\murf1\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.36\\microsoft.aspnetcore.app.ref.6.0.36.nupkg.sha512"
+    "/Users/aemurphy/.nuget/packages/godot.sourcegenerators/4.3.0/godot.sourcegenerators.4.3.0.nupkg.sha512",
+    "/Users/aemurphy/.nuget/packages/godotsharp/4.3.0/godotsharp.4.3.0.nupkg.sha512",
+    "/Users/aemurphy/.nuget/packages/godotsharpeditor/4.3.0/godotsharpeditor.4.3.0.nupkg.sha512"
   ],
   "logs": []
 }

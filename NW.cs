@@ -19,4 +19,9 @@ public partial class NW : ENBase //Short for "number wrapper" (reference - type 
         isVariable = true;
         isExpression = false;
     }
+
+    public override string Stringify()
+    {
+        return value.ToString();
+    }
 }

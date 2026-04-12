@@ -27,7 +27,7 @@ public partial class GUIManager : Node
 
 	public List<CharacterWrapper> ParseTextExpression (string text) {
 		List<CharacterWrapper> cw = new List<CharacterWrapper>();
-		string symbol;
+		//string symbol;
 
 		//TODO: figure this out
 	

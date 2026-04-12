@@ -1,18 +1,35 @@
-D:\MUALPHATHETA\.godot\mono\temp\bin\Debug\Mu Alpha Theta Project.deps.json
-D:\MUALPHATHETA\.godot\mono\temp\bin\Debug\Mu Alpha Theta Project.runtimeconfig.json
-D:\MUALPHATHETA\.godot\mono\temp\bin\Debug\Mu Alpha Theta Project.dll
-D:\MUALPHATHETA\.godot\mono\temp\bin\Debug\Mu Alpha Theta Project.pdb
-D:\MUALPHATHETA\.godot\mono\temp\bin\Debug\GodotSharp.dll
-D:\MUALPHATHETA\.godot\mono\temp\bin\Debug\GodotSharpEditor.dll
-D:\MUALPHATHETA\.godot\mono\temp\obj\Debug\Mu Alpha Theta Project.csproj.AssemblyReference.cache
-D:\MUALPHATHETA\.godot\mono\temp\obj\Debug\Mu Alpha Theta Project.GeneratedMSBuildEditorConfig.editorconfig
-D:\MUALPHATHETA\.godot\mono\temp\obj\Debug\Mu Alpha Theta Project.AssemblyInfoInputs.cache
-D:\MUALPHATHETA\.godot\mono\temp\obj\Debug\Mu Alpha Theta Project.AssemblyInfo.cs
-D:\MUALPHATHETA\.godot\mono\temp\obj\Debug\Mu Alpha Theta Project.csproj.CoreCompileInputs.cache
-D:\MUALPHATHETA\.godot\mono\temp\obj\Debug\Mu Alpha Theta Project.sourcelink.json
-D:\MUALPHATHETA\.godot\mono\temp\obj\Debug\Mu Alpha.F00E76C7.Up2Date
-D:\MUALPHATHETA\.godot\mono\temp\obj\Debug\Mu Alpha Theta Project.dll
-D:\MUALPHATHETA\.godot\mono\temp\obj\Debug\refint\Mu Alpha Theta Project.dll
-D:\MUALPHATHETA\.godot\mono\temp\obj\Debug\Mu Alpha Theta Project.pdb
-D:\MUALPHATHETA\.godot\mono\temp\obj\Debug\Mu Alpha Theta Project.genruntimeconfig.cache
-D:\MUALPHATHETA\.godot\mono\temp\obj\Debug\ref\Mu Alpha Theta Project.dll
+D:/MUALPHATHETA/.godot/mono/temp/bin/Debug/Mu Alpha Theta Project.deps.json
+D:/MUALPHATHETA/.godot/mono/temp/bin/Debug/Mu Alpha Theta Project.runtimeconfig.json
+D:/MUALPHATHETA/.godot/mono/temp/bin/Debug/Mu Alpha Theta Project.dll
+D:/MUALPHATHETA/.godot/mono/temp/bin/Debug/Mu Alpha Theta Project.pdb
+D:/MUALPHATHETA/.godot/mono/temp/bin/Debug/GodotSharp.dll
+D:/MUALPHATHETA/.godot/mono/temp/bin/Debug/GodotSharpEditor.dll
+D:/MUALPHATHETA/.godot/mono/temp/obj/Debug/Mu Alpha Theta Project.csproj.AssemblyReference.cache
+D:/MUALPHATHETA/.godot/mono/temp/obj/Debug/Mu Alpha Theta Project.GeneratedMSBuildEditorConfig.editorconfig
+D:/MUALPHATHETA/.godot/mono/temp/obj/Debug/Mu Alpha Theta Project.AssemblyInfoInputs.cache
+D:/MUALPHATHETA/.godot/mono/temp/obj/Debug/Mu Alpha Theta Project.AssemblyInfo.cs
+D:/MUALPHATHETA/.godot/mono/temp/obj/Debug/Mu Alpha Theta Project.csproj.CoreCompileInputs.cache
+D:/MUALPHATHETA/.godot/mono/temp/obj/Debug/Mu Alpha Theta Project.sourcelink.json
+D:/MUALPHATHETA/.godot/mono/temp/obj/Debug/Mu Alpha.F00E76C7.Up2Date
+D:/MUALPHATHETA/.godot/mono/temp/obj/Debug/Mu Alpha Theta Project.dll
+D:/MUALPHATHETA/.godot/mono/temp/obj/Debug/refint/Mu Alpha Theta Project.dll
+D:/MUALPHATHETA/.godot/mono/temp/obj/Debug/Mu Alpha Theta Project.pdb
+D:/MUALPHATHETA/.godot/mono/temp/obj/Debug/Mu Alpha Theta Project.genruntimeconfig.cache
+D:/MUALPHATHETA/.godot/mono/temp/obj/Debug/ref/Mu Alpha Theta Project.dll
+/Users/aemurphy/Desktop/Godot/MuAlphaThetaProject/.godot/mono/temp/obj/Debug/Mu Alpha Theta Project.csproj.AssemblyReference.cache
+/Users/aemurphy/Desktop/Godot/MuAlphaThetaProject/.godot/mono/temp/obj/Debug/Mu Alpha Theta Project.GeneratedMSBuildEditorConfig.editorconfig
+/Users/aemurphy/Desktop/Godot/MuAlphaThetaProject/.godot/mono/temp/obj/Debug/Mu Alpha Theta Project.AssemblyInfoInputs.cache
+/Users/aemurphy/Desktop/Godot/MuAlphaThetaProject/.godot/mono/temp/obj/Debug/Mu Alpha Theta Project.AssemblyInfo.cs
+/Users/aemurphy/Desktop/Godot/MuAlphaThetaProject/.godot/mono/temp/obj/Debug/Mu Alpha Theta Project.csproj.CoreCompileInputs.cache
+/Users/aemurphy/Desktop/Godot/MuAlphaThetaProject/.godot/mono/temp/obj/Debug/Mu Alpha Theta Project.dll
+/Users/aemurphy/Desktop/Godot/MuAlphaThetaProject/.godot/mono/temp/obj/Debug/refint/Mu Alpha Theta Project.dll
+/Users/aemurphy/Desktop/Godot/MuAlphaThetaProject/.godot/mono/temp/obj/Debug/Mu Alpha Theta Project.pdb
+/Users/aemurphy/Desktop/Godot/MuAlphaThetaProject/.godot/mono/temp/bin/Debug/Mu Alpha Theta Project.deps.json
+/Users/aemurphy/Desktop/Godot/MuAlphaThetaProject/.godot/mono/temp/bin/Debug/Mu Alpha Theta Project.runtimeconfig.json
+/Users/aemurphy/Desktop/Godot/MuAlphaThetaProject/.godot/mono/temp/bin/Debug/Mu Alpha Theta Project.dll
+/Users/aemurphy/Desktop/Godot/MuAlphaThetaProject/.godot/mono/temp/bin/Debug/Mu Alpha Theta Project.pdb
+/Users/aemurphy/Desktop/Godot/MuAlphaThetaProject/.godot/mono/temp/bin/Debug/GodotSharp.dll
+/Users/aemurphy/Desktop/Godot/MuAlphaThetaProject/.godot/mono/temp/bin/Debug/GodotSharpEditor.dll
+/Users/aemurphy/Desktop/Godot/MuAlphaThetaProject/.godot/mono/temp/obj/Debug/Mu Alpha Theta Project.csproj.CopyComplete
+/Users/aemurphy/Desktop/Godot/MuAlphaThetaProject/.godot/mono/temp/obj/Debug/Mu Alpha Theta Project.genruntimeconfig.cache
+/Users/aemurphy/Desktop/Godot/MuAlphaThetaProject/.godot/mono/temp/obj/Debug/ref/Mu Alpha Theta Project.dll

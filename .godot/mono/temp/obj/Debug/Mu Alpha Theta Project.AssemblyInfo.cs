@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Mu Alpha Theta Project")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+77ae686180712b8d3fccc03aff535d0e78d51520")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
 [assembly: System.Reflection.AssemblyProductAttribute("Mu Alpha Theta Project")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Mu Alpha Theta Project")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

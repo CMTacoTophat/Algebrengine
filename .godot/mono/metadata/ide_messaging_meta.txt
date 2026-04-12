@@ -1,2 +1,2 @@
-﻿58411
-D:/Godot_v4.3-stable_mono_win64/Godot_v4.3-stable_mono_win64/Godot_v4.3-stable_mono_win64.exe
+﻿50794
+/private/var/folders/_d/_q71yzln4cv6xvnx2h48q78h0000gn/T/AppTranslocation/934C11C3-4FDC-4AA3-819C-218A79718035/d/Godot_mono.app/Contents/MacOS/Godot
