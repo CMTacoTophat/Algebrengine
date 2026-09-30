@@ -5,8 +5,6 @@ public abstract class PropertyBase
 	public bool enabled = true;
 	protected abstract TreeNode InputBaseTopo { get; }
 	protected abstract TreeNode OutputBaseTopo { get; }
-
-	//TODO: check over this process again
 	public abstract TreeNode Apply(TreeNode t);
 	
 	//In case there isn't anything special the property needs to check/do during the application process

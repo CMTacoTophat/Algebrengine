@@ -7,8 +7,6 @@ public class Matrix : Tensor
 	}
 	
 	public Matrix(string vN, string vD) : base(vN, vD) {}
-	
-	//TODO: Merge with implementation in Tensor class
 	public TreeNode GetMatrixElement(int RowIndex, int ColIndex)
 	{
 		if (RowIndex + 1 > dim[0] || ColIndex + 1 > dim[1])

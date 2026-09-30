@@ -30,7 +30,6 @@ public abstract class OperatorBase
 			return Parent; //whether recursing or not
 		}
 
-		//TODO (maybe already done): Implement definite value check (i. e., if simplication can be done) 
 		if (recursive)
 		{
 			return OperatorSpecificSimplify(Parent.SubNode1.Operator.Simplify(true), Parent.SubNode2.Operator.Simplify(true));

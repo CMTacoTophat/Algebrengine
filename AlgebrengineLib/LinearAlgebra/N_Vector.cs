@@ -2,13 +2,18 @@ namespace AlgebrengineLib.LinearAlgebra;
 
 public class Vector : Tensor { 
 	//Possibly inherit from Matrix?
-	public Vector(TreeNode SN1, TreeNode SN2, O_Structure O) : base(SN1, SN2, O) {
-	
+	public int vecDim = 0;
+	public Vector(TreeNode SN1, TreeNode SN2, O_Structure O) : base(SN1, SN2, O) {}
+
+	public Vector(params TreeNode[] elements) : base(EmptyConstructorException.Construction_From_Parameters)
+	{
+		vecDim = elements.Length;
+		dim = [vecDim];
+		ConstructTopologyFromRepresentation();
 	}
 	
 	public Vector(string vN, string vD) : base(vN, vD) {}
 	
-	//TODO: Merge with implementation in Matrix class
 	public TreeNode GetVectorElement(int index)
 	{
 		if (index + 1 > vecDim)
@@ -30,5 +35,5 @@ public class Vector : Tensor {
 		GetVectorElement(index).ReplaceNode(t);
 	}
 
-	public int vecDim = 0;
+	
 }

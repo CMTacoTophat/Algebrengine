@@ -1,5 +1,5 @@
 namespace AlgebrengineLib;
-
+using System.Collections.Generic;
 public class TreeNode
 {
 	public TreeNode SubNode1 = new INVALID_ELEMENT("TreeNode SubNode 1 not set", true);
@@ -24,9 +24,13 @@ public class TreeNode
 		}
 	}
 
-	//TODO: Establish variable naming convention (so variables added to the registry from one process don't conflict with another)
 	//NOTE: a node that is a variable will have a name, which can be looked up in the Store class to find the TreeNode
 	//which it represents (or eventually may represent)
+
+	//While a variable naming convention isn't necessarily required, here is what this library uses:
+	//"<what type of thing its used for>_<what specific thing it comes from>_<further specification...>_<display shorthand>"
+	//Example: the "a" used in the distributive property's "a(b+c) --> ab + ac" is named as such:
+	//"prop_distributive_forward_a"
 	public bool isVariable; //for substitution and such
 	public string variableName = ""; //used for the Store table, only usable if field above is true
 	public string variableDisplayValue = "x"; //how it actually looks. For more graphical programs, the type may have to be more
@@ -35,7 +39,19 @@ public class TreeNode
 	public bool isInvalidElement = false; //if the treenode doesn't exist (i. e., 4th component of 3D vector)
 	public int id = -1; //for debugging - purpose mostly backend
 	public int parentId = -1;
-	public static int GlobalElemCount = 0; //TODO: Implement defragmentation process
+	private static List<TreeNode> GlobalElemList = [];
+	private static int GlobalElemCount = 0;
+	private static void AddToGlobalElements(TreeNode t) {
+		t.id = GlobalElemCount++;
+		GlobalElemList.Add(t);
+	}
+	private static void RemoveFromGlobalElements(TreeNode t)
+	{
+		GlobalElemList.RemoveAt(t.id);
+		GlobalElemCount--;
+		t.id = -1;
+	}
+
 	public TreeNode[] alternativeArrangements = [];
 	
 	//No constructors are made without arguments to force child classes to implement them
@@ -63,23 +79,30 @@ public class TreeNode
 		id = GlobalElemCount++;
 	}
 
-	//With this class, there is no way to program a TreeNode-inherited class without writing a 
+	//With this class, there is no way to program a TreeNode-inherited class without writing a special constructor,
+	//requiring developers to not have orphaned nodes (with only a few small exceptions, as seen below)
 	public TreeNode(string vN, string vD = "x")
 	{
 		MakeVariable(vN, vD);
-		id = GlobalElemCount++;
+		AddToGlobalElements(this);
 	}
 	
 	//In the case a special treenode needs to be made where it can't override any of the REAL constructors
 	protected enum EmptyConstructorException {
-		Invalid_Element
+		Invalid_Element,
+		Construction_From_Parameters //when the object can be built in its own class from the constructor arguments
 	}
 	
 	protected TreeNode(EmptyConstructorException e) {
 		switch (e) {
 			case EmptyConstructorException.Invalid_Element:
-				//TODO: Figure out special behavior here
+				//Add special behavior as needed
 				isEndValue = true;
+				AddToGlobalElements(this);
+				break;
+			case EmptyConstructorException.Construction_From_Parameters:
+				hasDefiniteValue = true;
+				AddToGlobalElements(this);
 				break;
 		}
 	}
@@ -156,11 +179,17 @@ public class TreeNode
 			
 			//if they are both the end value
 			if (n1.isEndValue && n2.isEndValue) {
-				if (connectVariables) { Store.AddVariable(n1.variableName, n2, out _); /*TODO: use error checking*/}
+				if (connectVariables) { 
+					Store.AddVariable(n1.variableName, n2, out bool s); 
+					if (!s) Console.WriteLine("Error: could not connect variable!");
+				}
 				return true;
 			//if there is a mismatch, but because n2 could be an extension
 			} else if (checkIfExtension && n1.isEndValue) { 
-				if (connectVariables) { Store.AddVariable(n1.variableName, n2, out _); }
+				if (connectVariables) { 
+					Store.AddVariable(n1.variableName, n2, out bool s); 
+					if (!s) Console.WriteLine("Error: could not connect variable!");
+				}
 				return true;
 			//No way to save it
 			} else {
@@ -173,14 +202,16 @@ public class TreeNode
 	}
 
 	public void ReplaceAsVariable(bool recurse = false) {
-		//TODO: Implement recursion
-		bool exists;
-		TreeNode newTree = Store.GetVariable(variableName, out exists);
-		if (!isVariable || !exists) {
-			return; //won't work
+        TreeNode newTree = Store.GetVariable(variableName, out bool exists);
+        if (isVariable && exists) {
+			ReplaceWithTree(newTree);
 		}
 		
-		ReplaceWithTree(newTree);
+		if (recurse)
+		{
+			SubNode1.ReplaceAsVariable(true);
+			SubNode2.ReplaceAsVariable(true);
+		}
 	}
 	
 	public void ReplaceWithTree(TreeNode tree)
@@ -192,6 +223,10 @@ public class TreeNode
 		SubNode1 = tree.SubNode1;
 		Operator = tree.Operator;
 		SubNode2 = tree.SubNode2;
+
+		AddToGlobalElements(this);
+		RemoveFromGlobalElements(old);
+
 		HandleTreeChange(old);
 	}
 
@@ -220,7 +255,6 @@ public class TreeNode
 			alts.Add(this);
 		}
 
-		//TODO: Call GAARecurse
 		TreeNode[] ret = {};
 		alts.CopyTo(ret);
 		return ret;

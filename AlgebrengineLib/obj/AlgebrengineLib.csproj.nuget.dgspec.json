@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\murphc6\\Documents\\GitHub\\AlgebrengineWIP\\AlgebrengineLib\\AlgebrengineLib.csproj": {}
+    "C:\\Users\\murphc6\\Documents\\GitHub\\Algebrengine\\AlgebrengineLib\\AlgebrengineLib.csproj": {}
   },
   "projects": {
-    "C:\\Users\\murphc6\\Documents\\GitHub\\AlgebrengineWIP\\AlgebrengineLib\\AlgebrengineLib.csproj": {
+    "C:\\Users\\murphc6\\Documents\\GitHub\\Algebrengine\\AlgebrengineLib\\AlgebrengineLib.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\murphc6\\Documents\\GitHub\\AlgebrengineWIP\\AlgebrengineLib\\AlgebrengineLib.csproj",
+        "projectUniqueName": "C:\\Users\\murphc6\\Documents\\GitHub\\Algebrengine\\AlgebrengineLib\\AlgebrengineLib.csproj",
         "projectName": "AlgebrengineLib",
-        "projectPath": "C:\\Users\\murphc6\\Documents\\GitHub\\AlgebrengineWIP\\AlgebrengineLib\\AlgebrengineLib.csproj",
+        "projectPath": "C:\\Users\\murphc6\\Documents\\GitHub\\Algebrengine\\AlgebrengineLib\\AlgebrengineLib.csproj",
         "packagesPath": "C:\\Users\\murphc6\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\murphc6\\Documents\\GitHub\\AlgebrengineWIP\\AlgebrengineLib\\obj\\",
+        "outputPath": "C:\\Users\\murphc6\\Documents\\GitHub\\Algebrengine\\AlgebrengineLib\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\murphc6\\AppData\\Roaming\\NuGet\\NuGet.Config"

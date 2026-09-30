@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AlgebrengineLib")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5f92aa984b8eab532b9c606c7cb69a9872496c78")]
 [assembly: System.Reflection.AssemblyProductAttribute("AlgebrengineLib")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AlgebrengineLib")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

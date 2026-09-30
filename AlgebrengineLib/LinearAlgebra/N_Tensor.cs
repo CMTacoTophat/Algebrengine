@@ -1,35 +1,52 @@
 namespace AlgebrengineLib.LinearAlgebra;
-
+using System.Collections.Generic;
 public class Tensor : TreeNode
 {
 	public int[] dim = [];
 	private Dictionary<int[], TreeNode> representation = new();
 	//REAL constructors
 	public Tensor(TreeNode SN1, TreeNode SN2, OperatorBase O) : base(SN1, SN2, O, false) {}
+
+	public Tensor(Dictionary<int[], TreeNode> rep) : base(EmptyConstructorException.Construction_From_Parameters)
+	{
+		representation = rep;
+		dim = new int[rep.ElementAt(0).Key.Length];
+		//initialize dim
+		for (int i = 0; i < rep.Count; i++)
+		{
+			for (int r = 0; r < dim.Length; r++)
+			{
+				dim[r] = Math.Max(dim[r], rep.ElementAt(i).Key[r]);
+			}
+		}
+		ConstructTopologyFromRepresentation();
+	}
 	
+	public Tensor(int[] shape, params TreeNode[] nodes) : base(EmptyConstructorException.Construction_From_Parameters)
+	{
+		dim = shape;
+		ConfigureTensor(nodes);
+	}
+
 	//It is apparently impossible to enforce multiple constructor inheritance. However, largely the only instance
 	//where this second constructor would be used would be for properties, which would presumably be created with any new
 	//mathematical objects added, thus making the lack of this constructor evident
 	public Tensor(string vN, string vD) : base(vN, vD) {}
 
-	public void ConfigureTensor(Dictionary<int[], TreeNode> rep)
-	{
-		representation = rep;
-		ConstructTopologyFromRepresentation();
-	}
+	protected Tensor(EmptyConstructorException e) : base (e) {}
 
-	public void ConfigureTensor(int[] shape, params TreeNode[] nodes)
+	public void ConfigureTensor(params TreeNode[] nodes)
 	{
 		//build a helper array to get from N-D index to 1-D index
-		//TODO: potentially make this more permanent, as it might be useful elsewhere
-		int[] positionFinder = new int[shape.Length];
-		for (int r = shape.Length - 1; r >= 0; r++)
+		//could potentially make this more permanent, as it might be useful elsewhere
+		int[] positionFinder = new int[dim.Length];
+		for (int r = dim.Length - 1; r >= 0; r++)
 		{
-			positionFinder[r] = r == shape.Length - 1 ? 1 : shape[r + 1] * positionFinder[r + 1]; //dimension N + 1 changes by 
+			positionFinder[r] = r == dim.Length - 1 ? 1 : dim[r + 1] * positionFinder[r + 1]; //dimension N + 1 changes by 
 			//the size of dimension N times how much IT changes by
 		}
 
-		int[] startIdx = new int[shape.Length];
+		int[] startIdx = new int[dim.Length];
 		
 		//for every index combination, multiply each index by how many previous ones it represents
 		//the size of dimension N times how much IT changes by
@@ -87,7 +104,7 @@ public class Tensor : TreeNode
 		return indices.ToArray();
 	}
 
-	protected void ExecuteForAllIndexCombinations(Action<int[]> executable) {
+	public void ExecuteForAllIndexCombinations(Action<int[]> executable) {
 		int[] startIdx = new int[dim.Length];
 		
 		//WARNING: apparently recursion with a lambda throws "use of unassigned local variable" errors. This supposedly works, but in case it doesn't,
@@ -111,7 +128,7 @@ public class Tensor : TreeNode
 		loop(dim.Length, startIdx);
 	}
 	
-	private void ConstructRepresentationFromTopology()
+	protected void ConstructTopologyFromRepresentation()
 	{	
 		TreeNode compiledTensor = CompileBranch(dim.Length, new int[dim.Length]);
 		//replace only the sub nodes to keep the special properties of the tensor object
@@ -137,9 +154,8 @@ public class Tensor : TreeNode
 		return lastSN;
 	}
 
-	private void ConstructTopologyFromRepresentation()
+	protected void ConstructRepresentationFromTopology()
 	{
-		//TODO: Implement
 		Action<int[]> addToRepresentation = (int[] currIndex) => {
 			TreeNode element = GetTensorElement(currIndex);
 			
