@@ -3,7 +3,7 @@ namespace AlgebrengineLib.LinearAlgebra;
 public class Vector : Tensor { 
 	//Possibly inherit from Matrix?
 	public int vecDim = 0;
-	public Vector(TreeNode SN1, TreeNode SN2, O_Structure O) : base(SN1, SN2, O) {}
+	public Vector(TreeNode SN1, TreeNode SN2, IConstrainedOutput<Vector> O) : base(SN1, SN2, O) {}
 
 	public Vector(params TreeNode[] elements) : base(EmptyConstructorException.Construction_From_Parameters)
 	{
@@ -18,7 +18,7 @@ public class Vector : Tensor {
 	{
 		if (index + 1 > vecDim)
 		{
-			return new INVALID_ELEMENT("Vector Index Out of Bounds");
+			return INVALID_ELEMENT("Vector Index Out of Bounds");
 		}
 
 		TreeNode target = this;

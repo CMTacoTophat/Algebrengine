@@ -2,11 +2,12 @@ namespace AlgebrengineLib;
 using System.Collections.Generic;
 public class TreeNode
 {
-	public TreeNode SubNode1 = new INVALID_ELEMENT("TreeNode SubNode 1 not set", true);
+	public TreeNode SubNode1 = INVALID_ELEMENT("TreeNode SubNode 1 not set", true);
 	public OperatorBase Operator = new INVALID_OPERATOR("TreeNode Operator not set", true);
-	public TreeNode SubNode2 = new INVALID_ELEMENT("TreeNode SubNode 2 not set", true);
+	public IConstrainedOutput<TreeNode> ConstrainedOutputOperator = new INVALID_OPERATOR("TreeNode C. O. Operator not set", true);
+	public TreeNode SubNode2 = INVALID_ELEMENT("TreeNode SubNode 2 not set", true);
 	public bool isEndValue; //if it is a leaf
-	public TreeNode Parent = new INVALID_ELEMENT("TreeNode Parent not set", true);
+	public TreeNode Parent = INVALID_ELEMENT("TreeNode Parent not set", true);
 	public int sNNumberForParent = -1; //ONE OR TWO
 	public bool hasDefiniteValue; //for larger structures with all numbers filled, or for values themselves. NOT for trees with all subnodes filled numbers
 	public bool hasScalarRepresentativeValue; //for individual numbers, as display
@@ -37,6 +38,7 @@ public class TreeNode
 	//nuanced than  "string"
 	public bool isStructuralElement; //if it is part of a larger object (i. e., a row in a matrix)
 	public bool isInvalidElement = false; //if the treenode doesn't exist (i. e., 4th component of 3D vector)
+	public string cause = "<NO CAUSE SET>"; //if it is an invalid element
 	public int id = -1; //for debugging - purpose mostly backend
 	public int parentId = -1;
 	private static List<TreeNode> GlobalElemList = [];
@@ -55,7 +57,8 @@ public class TreeNode
 	public TreeNode[] alternativeArrangements = [];
 	
 	//No constructors are made without arguments to force child classes to implement them
-	public TreeNode(TreeNode sn1, TreeNode sn2, OperatorBase op, bool iSE = false)
+	//REMINDER: when overriding this, do NOT constrain the operator 
+	public TreeNode(TreeNode sn1, TreeNode sn2, IConstrainedOutput<TreeNode> op, bool iSE = false)
 	{
 		SubNode1 = sn1;
 		SubNode2 = sn2;
@@ -63,8 +66,15 @@ public class TreeNode
 		sn1.parentId = sn2.parentId = id;
 		sn1.sNNumberForParent = 1;
 		sn2.sNNumberForParent = 2;
-		Operator = op;
-		op.Parent = this;
+		ConstrainedOutputOperator = op;
+		if (op is OperatorBase realOp)
+		{
+			Operator = realOp;
+			Operator.Parent = this;
+		} else
+		{
+			throw new InvalidOperationException("ERROR: all operators should inherit from OperatorBase or OperatoreBase<TreeNode, TreeNode, TreeNode>!");
+		}
 		isStructuralElement = iSE;
 		id = GlobalElemCount++;
 		alternativeArrangements = GetAlternativeArrangements(true);
@@ -90,7 +100,7 @@ public class TreeNode
 	//In the case a special treenode needs to be made where it can't override any of the REAL constructors
 	protected enum EmptyConstructorException {
 		Invalid_Element,
-		Construction_From_Parameters //when the object can be built in its own class from the constructor arguments
+		Construction_From_Parameters, //when the object can be built in its own class from the constructor arguments
 	}
 	
 	protected TreeNode(EmptyConstructorException e) {
@@ -121,9 +131,9 @@ public class TreeNode
 		}
 		
 		if (recurse) {
-			return new TreeNode(SubNode1.GenerateCopy(true), SubNode2.GenerateCopy(true), Operator, isStructuralElement);
+			return new TreeNode(SubNode1.GenerateCopy(true), SubNode2.GenerateCopy(true), ConstrainedOutputOperator, isStructuralElement);
 		} else {
-			return new TreeNode(SubNode1, SubNode2, Operator, isStructuralElement);
+			return new TreeNode(SubNode1, SubNode2, ConstrainedOutputOperator, isStructuralElement);
 		}
 		
 	}
@@ -234,11 +244,11 @@ public class TreeNode
 	{ //ONE OR TWO
 		if (sNNum == 1)
 		{
-			ReplaceWithTree(new(newSN, SubNode2, Operator, isStructuralElement));
+			ReplaceWithTree(new(newSN, SubNode2, ConstrainedOutputOperator, isStructuralElement));
 		}
 		else if (sNNum == 1)
 		{
-			ReplaceWithTree(new(SubNode1, newSN, Operator, isStructuralElement));
+			ReplaceWithTree(new(SubNode1, newSN, ConstrainedOutputOperator, isStructuralElement));
 		}
 	}
 
@@ -317,11 +327,11 @@ public class TreeNode
 		//NOTE: Commutivity changes order of TOP elements, so both paths need to be checked unless its going up and down the chain
 		if (!t.SubNode1.isEndValue)
 		{
-			alt = new(t.SubNode1.SubNode1, new(t.SubNode1.SubNode2, t.SubNode2, t.Operator), t.SubNode1.Operator);
+			alt = new(t.SubNode1.SubNode1, new(t.SubNode1.SubNode2, t.SubNode2, t.ConstrainedOutputOperator), t.SubNode1.ConstrainedOutputOperator);
 		}
 		else
 		{
-			alt = new(new(t.SubNode1, t.SubNode2.SubNode1, t.Operator), t.SubNode2.SubNode2, t.SubNode2.Operator);
+			alt = new(new(t.SubNode1, t.SubNode2.SubNode1, t.ConstrainedOutputOperator), t.SubNode2.SubNode2, t.SubNode2.ConstrainedOutputOperator);
 		}
 
 		return true;
@@ -335,22 +345,40 @@ public class TreeNode
 			return false;
 		}
 
-		alt = new(t.SubNode2, t.SubNode1, t.Operator);
+		alt = new(t.SubNode2, t.SubNode1, t.ConstrainedOutputOperator);
 		return true;
 	}
-}
 
-//===========================================================================================
-//===========================================================================================
-//===========================================================================================
-
-public class INVALID_ELEMENT : TreeNode
-{
-    public string cause = "Unspecified Cause";
-	public INVALID_ELEMENT(string causeOfInvalidity, bool suppressCreationWarning = false) : base(EmptyConstructorException.Invalid_Element)
+	//Convenence method for tree construction
+	//syntax: node1.Apply<O_Multiplication>(node2.Apply<O_Addition>(node3))
+	public TreeNode Apply<O>(TreeNode t, params object[] opParams) where O : OperatorBase, new()
 	{
-		isInvalidElement = true;
-		cause = causeOfInvalidity;
-		if (!suppressCreationWarning) Console.WriteLine("WARNING: Invalid element created! | Cause: \"" + cause + "\" | ID: " + id);
+		Type RuntimeType = this.GetType();
+		OperatorBase op = new O();
+		TreeNode? res = (TreeNode?)Activator.CreateInstance(RuntimeType, [this, t, op]);
+		if (res is not null)
+		{
+			return res;
+		} else
+		{
+			return INVALID_ELEMENT("Improper Apply method arguments");	
+		}
+	}
+	public static TreeNode INVALID_ELEMENT(string causeOfInvalidity, bool suppressCreationWarning = false)
+	{
+        TreeNode iv = new(EmptyConstructorException.Invalid_Element)
+        {
+            cause = causeOfInvalidity,
+            isInvalidElement = true
+        };
+
+		if (!suppressCreationWarning) Console.WriteLine("WARNING: Invalid element created! | Cause: \"" + iv.cause + "\" | ID: " + iv.id);
+        
+		return iv;
 	}
 }
+
+//===========================================================================================
+//===========================================================================================
+//===========================================================================================
+

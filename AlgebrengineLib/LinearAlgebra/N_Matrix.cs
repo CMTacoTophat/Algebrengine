@@ -2,7 +2,7 @@ namespace AlgebrengineLib.LinearAlgebra;
 
 public class Matrix : Tensor
 {
-	public Matrix(TreeNode SN1, TreeNode SN2, OperatorBase O) : base(SN1, SN2, O) {
+	public Matrix(TreeNode SN1, TreeNode SN2, IConstrainedOutput<Matrix> O) : base(SN1, SN2, O) {
 	
 	}
 	
@@ -11,7 +11,7 @@ public class Matrix : Tensor
 	{
 		if (RowIndex + 1 > dim[0] || ColIndex + 1 > dim[1])
 		{
-			return new INVALID_ELEMENT("Matrix Index Out of Bounds");
+			return INVALID_ELEMENT("Matrix Index Out of Bounds");
 		}
 
 		TreeNode target = this;

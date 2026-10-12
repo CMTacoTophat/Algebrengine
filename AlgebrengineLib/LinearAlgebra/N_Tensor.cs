@@ -5,7 +5,7 @@ public class Tensor : TreeNode
 	public int[] dim = [];
 	private Dictionary<int[], TreeNode> representation = new();
 	//REAL constructors
-	public Tensor(TreeNode SN1, TreeNode SN2, OperatorBase O) : base(SN1, SN2, O, false) {}
+	public Tensor(TreeNode SN1, TreeNode SN2, IConstrainedOutput<Tensor> O) : base(SN1, SN2, O, false) {}
 
 	public Tensor(Dictionary<int[], TreeNode> rep) : base(EmptyConstructorException.Construction_From_Parameters)
 	{
@@ -74,7 +74,7 @@ public class Tensor : TreeNode
 		ConstructRepresentationFromTopology(); //keep this up to date
 		if (!indices.Select(i => i + 1).ToArray().SequenceEqual(dim))
 		{
-			return new INVALID_ELEMENT("Tensor Indices Mismatched or Out of Bounds");
+			return INVALID_ELEMENT("Tensor Indices Mismatched or Out of Bounds");
 		}
 
 		TreeNode target = this;
@@ -138,7 +138,7 @@ public class Tensor : TreeNode
 	
 	//Helper method for CRFT
 	private TreeNode CompileBranch(int r, int[] currIndex) {
-		TreeNode lastSN = new INVALID_ELEMENT("Tensor Branch Ending"); //last sub/structural node
+		TreeNode lastSN = INVALID_ELEMENT("Tensor Branch Ending"); //last sub/structural node
 		int[] nextIndex = currIndex;
 		int l = nextIndex.Length;
 		

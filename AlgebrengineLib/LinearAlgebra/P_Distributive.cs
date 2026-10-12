@@ -1,7 +1,8 @@
 namespace AlgebrengineLib.LinearAlgebra;
 
-//TODO: make Distributive properties for the Inner and Outer Tensor products
-public class P_Distributive_ScalarMult : PropertyBase
+//This file is for the various distributive properties of each kind of linear algebra type/product
+//TODO: Implement inner and outer tensor propducts
+public class P_Distributive_Scalar : PropertyBase
 {
 	protected override TreeNode InputBaseTopo
 	{
@@ -11,8 +12,8 @@ public class P_Distributive_ScalarMult : PropertyBase
 			Scalar B = new("prop_distributive_forward_b", "b");
 			Scalar C = new("prop_distributive_forward_c", "c");
 			
-			Scalar BCSum = new(B, C, new O_Addition());
-			Scalar AProd = new(A, BCSum, new O_Multiplication());
+			Scalar BCSum = new(B, C, new O_Addition_Scalar());
+			Scalar AProd = new(A, BCSum, new O_Multiplication_Scalar());
 			return AProd;
 		}
 	}
@@ -25,16 +26,10 @@ public class P_Distributive_ScalarMult : PropertyBase
 			Scalar B = new("prop_distributive_forward_b", "b");
 			Scalar C = new("prop_distributive_forward_c", "c");
 			
-			Scalar ABMult = new(A, B, new O_Multiplication());
-			Scalar ACMult = new(A, C, new O_Multiplication());
-			Scalar ABACProd = new (ABMult, ACMult, new O_Addition());
+			Scalar ABMult = new(A, B, new O_Multiplication_Scalar());
+			Scalar ACMult = new(A, C, new O_Multiplication_Scalar());
+			Scalar ABACProd = new (ABMult, ACMult, new O_Addition_Scalar());
 			return ABACProd;
 		}
-	}
-
-	public override TreeNode Apply(TreeNode t)
-	{
-		//check for types with "if (t is Vector v)" and such
-		return DefaultApply(t);
 	}
 }
