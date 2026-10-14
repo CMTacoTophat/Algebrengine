@@ -9,7 +9,7 @@ public class P_Simplify_Addition_Scalar : PropertyBase
             Scalar A = new("prop_simplify_addition_scalar_a", "a");
 			Scalar B = new("prop_simplify_addition_scalar_b", "b");
 
-            Scalar ABSum = new Scalar(A, B, new O_Addition_Scalar());
+            Scalar ABSum = new Scalar(new O_Addition_Scalar(A, B));
             return ABSum;
         }
     }
@@ -49,7 +49,7 @@ public class P_Simplify_Addition_Vector : PropertyBase
             Vector A = new("prop_simplify_addition_vector_a", "vec_a");
             Vector B = new("prop_simplify_addition_vector_b", "vec_b");
 
-            Vector ABSum = new Vector(A, B, new O_Addition_Vector());
+            Vector ABSum = new Vector(new O_Addition_Vector(A, B));
             return ABSum;
         }
     }
@@ -67,7 +67,7 @@ public class P_Simplify_Addition_Vector : PropertyBase
                 //TODO: Figure out how to:
                 // a): Get the right "new TreeNode" type for unknown element situations like this
                 // b): Get the right operator for unknown element situations like this
-                ABSumElements.Add(new TreeNode(A.GetVectorElement(ind[0]), B.GetVectorElement(ind[0]), new O_Addition_Scalar()));
+                ABSumElements.Add(new TreeNode(new O_Addition_Scalar(A.GetVectorElement(ind[0]), B.GetVectorElement(ind[0]))));
             };
 
             A.ExecuteForAllIndexCombinations(adder);

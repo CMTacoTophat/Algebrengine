@@ -2,11 +2,15 @@ namespace AlgebrengineLib.LinearAlgebra;
 
 public class Matrix : Tensor
 {
-	public Matrix(TreeNode SN1, TreeNode SN2, IConstrainedOutput<Matrix> O) : base(SN1, SN2, O) {
+	public Matrix(IConstrainedOutput<Matrix> O) : base(O) {
 	
 	}
 	
 	public Matrix(string vN, string vD) : base(vN, vD) {}
+	public Matrix() : base()
+	{
+		
+	}
 	public TreeNode GetMatrixElement(int RowIndex, int ColIndex)
 	{
 		if (RowIndex + 1 > dim[0] || ColIndex + 1 > dim[1])

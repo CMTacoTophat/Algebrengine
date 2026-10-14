@@ -5,9 +5,9 @@ public class Tensor : TreeNode
 	public int[] dim = [];
 	private Dictionary<int[], TreeNode> representation = new();
 	//REAL constructors
-	public Tensor(TreeNode SN1, TreeNode SN2, IConstrainedOutput<Tensor> O) : base(SN1, SN2, O, false) {}
+	public Tensor(IConstrainedOutput<Tensor> O) : base(O, false) {}
 
-	public Tensor(Dictionary<int[], TreeNode> rep) : base(EmptyConstructorException.Construction_From_Parameters)
+	public Tensor(Dictionary<int[], TreeNode> rep) : base()
 	{
 		representation = rep;
 		dim = new int[rep.ElementAt(0).Key.Length];
@@ -22,7 +22,7 @@ public class Tensor : TreeNode
 		ConstructTopologyFromRepresentation();
 	}
 	
-	public Tensor(int[] shape, params TreeNode[] nodes) : base(EmptyConstructorException.Construction_From_Parameters)
+	public Tensor(int[] shape, params TreeNode[] nodes) : base()
 	{
 		dim = shape;
 		ConfigureTensor(nodes);
@@ -33,7 +33,7 @@ public class Tensor : TreeNode
 	//mathematical objects added, thus making the lack of this constructor evident
 	public Tensor(string vN, string vD) : base(vN, vD) {}
 
-	protected Tensor(EmptyConstructorException e) : base (e) {}
+	protected Tensor() : base () {}
 
 	public void ConfigureTensor(params TreeNode[] nodes)
 	{
@@ -145,9 +145,9 @@ public class Tensor : TreeNode
 		for (int i = 0; i < dim[dim.Length - r]; i++) {
 			nextIndex[l - r] = i;
 			if (r > 1) {
-				lastSN = new TensorBranch(lastSN, CompileBranch(r - 1, nextIndex));
+				lastSN = new TensorBranch(new O_Structure(lastSN, CompileBranch(r - 1, nextIndex)));
 			} else {
-				lastSN = new TensorBranch(lastSN, representation[nextIndex]);
+				lastSN = new TensorBranch(new O_Structure(lastSN, representation[nextIndex]));
 			}
 		}
 		
@@ -175,7 +175,7 @@ public class Tensor : TreeNode
 //diagonal to the LEFT, with each scalar being a leaf on the RIGHT side of it
 public class TensorBranch : TreeNode
 {
-	public TensorBranch(TreeNode sn1, TreeNode sn2) : base(sn1, sn2, new O_Structure(), true)
+	public TensorBranch(O_Structure O) : base(O, true)
 	{
 	}
 }

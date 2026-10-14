@@ -11,7 +11,12 @@ public class Scalar : TreeNode
 		ScalarVal = val;
 	}
 	
-	public Scalar(TreeNode SN1, TreeNode SN2, IConstrainedOutput<Scalar> O) : base(SN1, SN2, O, false) {}
+	public Scalar(IConstrainedOutput<Scalar> O) : base(O, false) {}
 
 	public Scalar(string vN, string vD) : base(vN, vD) {}
+
+	public Scalar() : base()
+	{
+		ScalarVal = 0;
+	}
 }

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 public class TreeNode
 {
 	public TreeNode SubNode1 = INVALID_ELEMENT("TreeNode SubNode 1 not set", true);
+	//The two following operator definitions should be the same
+	//TODO: implement safety type-checking in getter and setter methods
 	public OperatorBase Operator = new INVALID_OPERATOR("TreeNode Operator not set", true);
 	public IConstrainedOutput<TreeNode> ConstrainedOutputOperator = new INVALID_OPERATOR("TreeNode C. O. Operator not set", true);
 	public TreeNode SubNode2 = INVALID_ELEMENT("TreeNode SubNode 2 not set", true);
@@ -58,26 +60,15 @@ public class TreeNode
 	
 	//No constructors are made without arguments to force child classes to implement them
 	//REMINDER: when overriding this, do NOT constrain the operator 
-	public TreeNode(TreeNode sn1, TreeNode sn2, IConstrainedOutput<TreeNode> op, bool iSE = false)
+	public TreeNode(IConstrainedOutput<TreeNode> op, bool iSE = false)
 	{
-		SubNode1 = sn1;
-		SubNode2 = sn2;
-		sn1.Parent = sn2.Parent = this;
-		sn1.parentId = sn2.parentId = id;
-		sn1.sNNumberForParent = 1;
-		sn2.sNNumberForParent = 2;
-		ConstrainedOutputOperator = op;
-		if (op is OperatorBase realOp)
-		{
-			Operator = realOp;
-			Operator.Parent = this;
-		} else
-		{
-			throw new InvalidOperationException("ERROR: all operators should inherit from OperatorBase or OperatoreBase<TreeNode, TreeNode, TreeNode>!");
-		}
 		isStructuralElement = iSE;
 		id = GlobalElemCount++;
 		alternativeArrangements = GetAlternativeArrangements(true);
+
+		TreeNode copy = op.GetUnsimplified(this);
+
+		this.ReplaceWithTree(copy);
 	}
 
 	public TreeNode(double val)
@@ -97,24 +88,10 @@ public class TreeNode
 		AddToGlobalElements(this);
 	}
 	
-	//In the case a special treenode needs to be made where it can't override any of the REAL constructors
-	protected enum EmptyConstructorException {
-		Invalid_Element,
-		Construction_From_Parameters, //when the object can be built in its own class from the constructor arguments
-	}
-	
-	protected TreeNode(EmptyConstructorException e) {
-		switch (e) {
-			case EmptyConstructorException.Invalid_Element:
-				//Add special behavior as needed
-				isEndValue = true;
-				AddToGlobalElements(this);
-				break;
-			case EmptyConstructorException.Construction_From_Parameters:
-				hasDefiniteValue = true;
-				AddToGlobalElements(this);
-				break;
-		}
+	public TreeNode()
+	{
+		//required for the operator class to work
+		//do NOT use this normally
 	}
 	
 	public void MakeVariable(string varName, string varDisplay = "x") {
@@ -131,9 +108,11 @@ public class TreeNode
 		}
 		
 		if (recurse) {
-			return new TreeNode(SubNode1.GenerateCopy(true), SubNode2.GenerateCopy(true), ConstrainedOutputOperator, isStructuralElement);
+			Operator.ReplaceGenericSubNodes(SubNode1.GenerateCopy(true), SubNode2.GenerateCopy(true));
+			//Operator should be the same as constrained output operator
+			return new TreeNode(ConstrainedOutputOperator, isStructuralElement);
 		} else {
-			return new TreeNode(SubNode1, SubNode2, ConstrainedOutputOperator, isStructuralElement);
+			return new TreeNode(ConstrainedOutputOperator, isStructuralElement);
 		}
 		
 	}
@@ -231,8 +210,21 @@ public class TreeNode
 		old.Operator = this.Operator;
 		old.SubNode2 = this.SubNode2;
 		SubNode1 = tree.SubNode1;
-		Operator = tree.Operator;
+		ConstrainedOutputOperator = tree.ConstrainedOutputOperator;
 		SubNode2 = tree.SubNode2;
+		SubNode1.Parent = this;
+		SubNode2.Parent = this;
+		SubNode1.sNNumberForParent = 1;
+		SubNode2.sNNumberForParent = 2;
+
+		if (ConstrainedOutputOperator is OperatorBase realOp)
+		{
+			Operator = realOp;
+			Operator.Parent = this;
+		} else
+		{
+			throw new InvalidOperationException("ERROR: all operators should inherit from OperatorBase or OperatoreBase<TreeNode, TreeNode, TreeNode>!");
+		}
 
 		AddToGlobalElements(this);
 		RemoveFromGlobalElements(old);
@@ -242,13 +234,14 @@ public class TreeNode
 
 	public void ReplaceSubNode(TreeNode newSN, int sNNum)
 	{ //ONE OR TWO
+		Operator.ReplaceGenericSubNodes(newSN, sNNum);
 		if (sNNum == 1)
 		{
-			ReplaceWithTree(new(newSN, SubNode2, ConstrainedOutputOperator, isStructuralElement));
+			ReplaceWithTree(new(ConstrainedOutputOperator, isStructuralElement));
 		}
 		else if (sNNum == 1)
 		{
-			ReplaceWithTree(new(SubNode1, newSN, ConstrainedOutputOperator, isStructuralElement));
+			ReplaceWithTree(new(ConstrainedOutputOperator, isStructuralElement));
 		}
 	}
 
@@ -327,11 +320,17 @@ public class TreeNode
 		//NOTE: Commutivity changes order of TOP elements, so both paths need to be checked unless its going up and down the chain
 		if (!t.SubNode1.isEndValue)
 		{
-			alt = new(t.SubNode1.SubNode1, new(t.SubNode1.SubNode2, t.SubNode2, t.ConstrainedOutputOperator), t.SubNode1.ConstrainedOutputOperator);
+			t.Operator.ReplaceGenericSubNodes(t.SubNode1.SubNode2, t.SubNode2);
+			t.SubNode1.Operator.ReplaceGenericSubNodes(t.SubNode1.SubNode1, new TreeNode(t.ConstrainedOutputOperator));
+		
+			alt = new(t.SubNode1.ConstrainedOutputOperator);
 		}
 		else
 		{
-			alt = new(new(t.SubNode1, t.SubNode2.SubNode1, t.ConstrainedOutputOperator), t.SubNode2.SubNode2, t.SubNode2.ConstrainedOutputOperator);
+			t.Operator.ReplaceGenericSubNodes(t.SubNode1, t.SubNode2.SubNode1);
+			t.SubNode1.Operator.ReplaceGenericSubNodes(t.SubNode2.SubNode2, new TreeNode(t.ConstrainedOutputOperator));
+
+			alt = new(t.SubNode2.ConstrainedOutputOperator);
 		}
 
 		return true;
@@ -345,7 +344,9 @@ public class TreeNode
 			return false;
 		}
 
-		alt = new(t.SubNode2, t.SubNode1, t.ConstrainedOutputOperator);
+		t.Operator.ReplaceGenericSubNodes(t.SubNode2, t.SubNode1);
+		
+		alt = new(t.ConstrainedOutputOperator);
 		return true;
 	}
 
@@ -366,7 +367,7 @@ public class TreeNode
 	}
 	public static TreeNode INVALID_ELEMENT(string causeOfInvalidity, bool suppressCreationWarning = false)
 	{
-        TreeNode iv = new(EmptyConstructorException.Invalid_Element)
+        TreeNode iv = new()
         {
             cause = causeOfInvalidity,
             isInvalidElement = true

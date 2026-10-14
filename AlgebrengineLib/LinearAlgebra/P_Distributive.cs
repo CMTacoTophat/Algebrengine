@@ -12,8 +12,8 @@ public class P_Distributive_Scalar : PropertyBase
 			Scalar B = new("prop_distributive_forward_b", "b");
 			Scalar C = new("prop_distributive_forward_c", "c");
 			
-			Scalar BCSum = new(B, C, new O_Addition_Scalar());
-			Scalar AProd = new(A, BCSum, new O_Multiplication_Scalar());
+			Scalar BCSum = new(new O_Addition_Scalar(B, C));
+			Scalar AProd = new(new O_Multiplication_Scalar(A, BCSum));
 			return AProd;
 		}
 	}
@@ -26,9 +26,9 @@ public class P_Distributive_Scalar : PropertyBase
 			Scalar B = new("prop_distributive_forward_b", "b");
 			Scalar C = new("prop_distributive_forward_c", "c");
 			
-			Scalar ABMult = new(A, B, new O_Multiplication_Scalar());
-			Scalar ACMult = new(A, C, new O_Multiplication_Scalar());
-			Scalar ABACProd = new (ABMult, ACMult, new O_Addition_Scalar());
+			Scalar ABMult = new(new O_Multiplication_Scalar(A, B));
+			Scalar ACMult = new(new O_Multiplication_Scalar(A, C));
+			Scalar ABACProd = new (new O_Addition_Scalar(ABMult, ACMult));
 			return ABACProd;
 		}
 	}

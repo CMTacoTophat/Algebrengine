@@ -3,9 +3,9 @@ namespace AlgebrengineLib.LinearAlgebra;
 public class Vector : Tensor { 
 	//Possibly inherit from Matrix?
 	public int vecDim = 0;
-	public Vector(TreeNode SN1, TreeNode SN2, IConstrainedOutput<Vector> O) : base(SN1, SN2, O) {}
+	public Vector(IConstrainedOutput<Vector> O) : base(O) {}
 
-	public Vector(params TreeNode[] elements) : base(EmptyConstructorException.Construction_From_Parameters)
+	public Vector(params TreeNode[] elements) : base()
 	{
 		vecDim = elements.Length;
 		dim = [vecDim];
@@ -13,6 +13,11 @@ public class Vector : Tensor {
 	}
 	
 	public Vector(string vN, string vD) : base(vN, vD) {}
+
+	public Vector() : base()
+	{
+		
+	}
 	
 	public TreeNode GetVectorElement(int index)
 	{
