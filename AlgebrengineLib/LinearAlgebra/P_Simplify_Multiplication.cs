@@ -4,15 +4,15 @@ namespace AlgebrengineLib.LinearAlgebra;
 //including inner and outer products
 
 //TODO: implement inner and outer products
-public class P_Simplify_Multiplication_Scalar : PropertyBase
+public class P_Simplify_Multiplication_LAElement : PropertyBase
 {
     protected override TreeNode InputBaseTopo {get
         {
             //A + B = C
-            Scalar A = new("prop_simplify_multiplication_scalar_a", "a");
-			Scalar B = new("prop_simplify_multiplication_scalar_b", "b");
+            LinearAlgebraElementNode A = new("prop_simplify_multiplication_scalar_a", "a");
+			LinearAlgebraElementNode B = new("prop_simplify_multiplication_scalar_b", "b");
 
-            Scalar ABSum = new Scalar(new O_Addition_LAElement(A, B));
+            LinearAlgebraElementNode ABSum = new(new O_Multiplication_LAElement(A, B));
             return ABSum;
         }
     }
@@ -20,10 +20,10 @@ public class P_Simplify_Multiplication_Scalar : PropertyBase
     protected override TreeNode OutputBaseTopo {get
         {
             //A + B = C
-			Scalar A = new("prop_simplify_multiplication_scalar_a", "a");
-			Scalar B = new("prop_simplify_multiplication_scalar_b", "b");
+			LinearAlgebraElementNode A = new("prop_simplify_multiplication_scalar_a", "a");
+			LinearAlgebraElementNode B = new("prop_simplify_multiplication_scalar_b", "b");
 			
-			Scalar C = new(A.ScalarVal * B.ScalarVal);
+			LinearAlgebraElementNode C = new(A.node!.Multiply(B.node!));
 			return C;
         }
     }

@@ -15,6 +15,6 @@ public class O_Multiplication_LAElement : OperatorBase<LinearAlgebraElementNode,
 		
 	}
 
-    protected override PropertyBase simplificationProperty {get {return new P_Simplify_Multiplication_Scalar();}}
+    protected override PropertyBase simplificationProperty {get {return new P_Simplify_Multiplication_LAElement();}}
 }
 

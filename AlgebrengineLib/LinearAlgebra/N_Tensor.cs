@@ -9,6 +9,7 @@ public class Tensor : TreeNode
 
 	public Tensor(Dictionary<int[], TreeNode> rep) : base()
 	{
+		//TODO: Replace generic TreeNode's with LinearAlgebraElementNode's
 		representation = rep;
 		dim = new int[rep.ElementAt(0).Key.Length];
 		//initialize dim
@@ -130,6 +131,7 @@ public class Tensor : TreeNode
 	
 	protected void ConstructTopologyFromRepresentation()
 	{	
+		//TODO: MAKE STRONGLY TYPED STRUCTURAL OPERATOR AND REPLACE THIS (here and in quaternion)
 		TreeNode compiledTensor = CompileBranch(dim.Length, new int[dim.Length]);
 		//replace only the sub nodes to keep the special properties of the tensor object
 		this.ReplaceSubNode(compiledTensor.SubNode1, 1);
