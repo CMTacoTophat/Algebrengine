@@ -1,5 +1,6 @@
 namespace AlgebrengineLib;
 
+//TODO: Implement proper type-forcing for properties!
 public abstract class PropertyBase
 {
 	public bool enabled = true;

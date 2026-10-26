@@ -2,18 +2,18 @@ namespace AlgebrengineLib.LinearAlgebra;
 
 //This file is for the various distributive properties of each kind of linear algebra type/product
 //TODO: Implement inner and outer tensor propducts
-public class P_Distributive_Scalar : PropertyBase
+public class P_Distributive_LAElement : PropertyBase
 {
 	protected override TreeNode InputBaseTopo
 	{
 		get {
 			//A*(B + C)
-			Scalar A = new("prop_distributive_forward_a", "a");
-			Scalar B = new("prop_distributive_forward_b", "b");
-			Scalar C = new("prop_distributive_forward_c", "c");
+			LinearAlgebraElementNode A = new("prop_distributive_forward_a", "a");
+			LinearAlgebraElementNode B = new("prop_distributive_forward_b", "b");
+			LinearAlgebraElementNode C = new("prop_distributive_forward_c", "c");
 			
-			Scalar BCSum = new(new O_Addition_Scalar(B, C));
-			Scalar AProd = new(new O_Multiplication_Scalar(A, BCSum));
+			LinearAlgebraElementNode BCSum = new(new O_Addition_LAElement(B, C));
+			LinearAlgebraElementNode AProd = new(new O_Multiplication_LAElement(A, BCSum));
 			return AProd;
 		}
 	}
@@ -22,13 +22,13 @@ public class P_Distributive_Scalar : PropertyBase
 	{
 		get {
 			//A*B + A*C)
-			Scalar A = new("prop_distributive_forward_a", "a");
-			Scalar B = new("prop_distributive_forward_b", "b");
-			Scalar C = new("prop_distributive_forward_c", "c");
+			LinearAlgebraElementNode A = new("prop_distributive_forward_a", "a");
+			LinearAlgebraElementNode B = new("prop_distributive_forward_b", "b");
+			LinearAlgebraElementNode C = new("prop_distributive_forward_c", "c");
 			
-			Scalar ABMult = new(new O_Multiplication_Scalar(A, B));
-			Scalar ACMult = new(new O_Multiplication_Scalar(A, C));
-			Scalar ABACProd = new (new O_Addition_Scalar(ABMult, ACMult));
+			LinearAlgebraElementNode ABMult = new(new O_Multiplication_LAElement(A, B));
+			LinearAlgebraElementNode ACMult = new(new O_Multiplication_LAElement(A, C));
+			LinearAlgebraElementNode ABACProd = new (new O_Addition_LAElement(ABMult, ACMult));
 			return ABACProd;
 		}
 	}

@@ -18,12 +18,13 @@ public class Vector : Tensor {
 	{
 		
 	}
-	
-	public TreeNode GetVectorElement(int index)
+	//element gauranteed to be scalar (output) because if it was a tensor of higher rank, that would just
+	//make THIS a tensor of higher rank
+	public Scalar GetVectorElement(int index)
 	{
 		if (index + 1 > vecDim)
 		{
-			return INVALID_ELEMENT("Vector Index Out of Bounds");
+			return (Scalar)INVALID_ELEMENT("Vector Index Out of Bounds");
 		}
 
 		TreeNode target = this;
@@ -32,7 +33,7 @@ public class Vector : Tensor {
 			target = target.SubNode1;
 		}
 
-		return target.SubNode2;
+		return (Scalar)target.SubNode2;
 	}
 
 	public void SetVectorElement(int index, TreeNode t)

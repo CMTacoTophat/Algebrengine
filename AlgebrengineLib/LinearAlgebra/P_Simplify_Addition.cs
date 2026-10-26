@@ -1,15 +1,18 @@
+using System.Runtime.CompilerServices;
+
 namespace AlgebrengineLib.LinearAlgebra;
 
-//this file is for the vairous simplification properties for linear algebra addition
-public class P_Simplify_Addition_Scalar : PropertyBase
+//this file is for the various simplification properties for linear algebra addition
+
+public class P_Simplify_Addition_LAElement : PropertyBase
 {
     protected override TreeNode InputBaseTopo {get
         {
             //A + B = C
-            Scalar A = new("prop_simplify_addition_scalar_a", "a");
-			Scalar B = new("prop_simplify_addition_scalar_b", "b");
+            LinearAlgebraElementNode A = new("prop_simplify_addition_la_element_a", "a");
+			LinearAlgebraElementNode B = new("prop_simplify_addition_la_element_b", "b");
 
-            Scalar ABSum = new Scalar(new O_Addition_Scalar(A, B));
+            LinearAlgebraElementNode ABSum = new(new O_Addition_LAElement(A, B));
             return ABSum;
         }
     }
@@ -17,10 +20,11 @@ public class P_Simplify_Addition_Scalar : PropertyBase
     protected override TreeNode OutputBaseTopo {get
         {
             //A + B = C
-			Scalar A = new("prop_simplify_addition_scalar_a", "a");
-			Scalar B = new("prop_simplify_addition_scalar_b", "b");
+			LinearAlgebraElementNode A = new("prop_simplify_addition_la_element_a", "a");
+			LinearAlgebraElementNode B = new("prop_simplify_addition_la_element_b", "b");
 			
-			Scalar C = new(A.ScalarVal + B.ScalarVal);
+            LinearAlgebraElementNode C;
+            C = new(A.node!.Add(B.node!));
 			return C;
         }
     }
@@ -64,10 +68,7 @@ public class P_Simplify_Addition_Vector : PropertyBase
 
             Action<int[]> adder = (int[] ind) =>
             {
-                //TODO: Figure out how to:
-                // a): Get the right "new TreeNode" type for unknown element situations like this
-                // b): Get the right operator for unknown element situations like this
-                ABSumElements.Add(new TreeNode(new O_Addition_Scalar(A.GetVectorElement(ind[0]), B.GetVectorElement(ind[0]))));
+                ABSumElements.Add(new TreeNode(new O_Addition_LAElement(A.GetVectorElement(ind[0]), B.GetVectorElement(ind[0]))));
             };
 
             A.ExecuteForAllIndexCombinations(adder);

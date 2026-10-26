@@ -1,5 +1,11 @@
 namespace AlgebrengineLib;
 
+public interface IVariable
+{
+	public void ReplaceAsVariable(bool recurse = false);
+}
+
+
 public static class Store
 {
 	private static Dictionary<string, TreeNode> VariableStore = new Dictionary<string, TreeNode>

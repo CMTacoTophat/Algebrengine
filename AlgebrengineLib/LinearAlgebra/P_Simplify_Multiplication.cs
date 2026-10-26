@@ -12,7 +12,7 @@ public class P_Simplify_Multiplication_Scalar : PropertyBase
             Scalar A = new("prop_simplify_multiplication_scalar_a", "a");
 			Scalar B = new("prop_simplify_multiplication_scalar_b", "b");
 
-            Scalar ABSum = new Scalar(new O_Addition_Scalar(A, B));
+            Scalar ABSum = new Scalar(new O_Addition_LAElement(A, B));
             return ABSum;
         }
     }

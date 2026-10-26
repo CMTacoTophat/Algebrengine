@@ -1,5 +1,7 @@
 namespace AlgebrengineLib;
 using System.Collections.Generic;
+using System.Reflection;
+
 public class TreeNode
 {
 	public TreeNode SubNode1 = INVALID_ELEMENT("TreeNode SubNode 1 not set", true);
@@ -155,6 +157,7 @@ public class TreeNode
 			with one another. if it is true, this is considered instead of being an exact match, with the n1 being the base
 			and n2 being the extension.
 	*/
+	//TODO: Confirm this works
 	public static bool CheckIfSimilar(TreeNode n1, TreeNode n2, bool checkIfExtension = false, bool connectVariables = false)
 	{ //NOTE: Convention will be than n1 has the variables to be connected!
 		//Console.WriteLine("Checking " + msg);
@@ -186,8 +189,42 @@ public class TreeNode
 			}
 		}
 
+		//keep checking down the tree
+		if (n1.Operator.GetType() != n2.Operator.GetType())
+		{
+			return false; //if different operators, the tree is not similar
+		}
+		if (!n2.GetType().IsAssignableFrom(n1.GetType())) //if not assignable, return false
+		{
+			//IMPORTANT EXCEPTION: dealing with a type unknown for the current algebra because it was implemented outside it
+			//(is an element)
+			if (n1 is UnconstrainedBaseElement B && n2 is IElementImplementer EI && B.IsCompatibleNode(EI))
+			{
+				//TODO: Simplify
+
+				if (connectVariables) { 
+					Store.AddVariable(n1.variableName, n2, out bool s); 
+					if (!s) Console.WriteLine("Error: could not connect variable!");
+				}
+			}
+			return false; //if it cannot reasonably be replaced
+		} else
+		{
+			if (connectVariables) { 
+					Store.AddVariable(n1.variableName, n2, out bool s); 
+					if (!s) Console.WriteLine("Error: could not connect variable!");
+				}
+		}
+
 		//if not gauranteed that either is a quantity, keep going
-		return CheckIfSimilar(n1.SubNode1, n2.SubNode1) && CheckIfSimilar(n1.SubNode2, n2.SubNode2);
+		bool similar = CheckIfSimilar(n1.SubNode1, n2.SubNode1) && CheckIfSimilar(n1.SubNode2, n2.SubNode2);
+
+		if (similar && connectVariables) { //connect current if the sub-tree ends up being valid
+			Store.AddVariable(n1.variableName, n2, out bool s); 
+			if (!s) Console.WriteLine("Error: could not connect variable!");
+		}
+
+		return similar;
 	}
 
 	public void ReplaceAsVariable(bool recurse = false) {
