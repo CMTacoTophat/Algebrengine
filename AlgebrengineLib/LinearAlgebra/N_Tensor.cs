@@ -34,7 +34,7 @@ public class Tensor : TreeNode
 	//mathematical objects added, thus making the lack of this constructor evident
 	public Tensor(string vN, string vD) : base(vN, vD) {}
 
-	protected Tensor() : base () {}
+	public Tensor() : base () {}
 
 	public void ConfigureTensor(params TreeNode[] nodes)
 	{
@@ -131,11 +131,9 @@ public class Tensor : TreeNode
 	
 	protected void ConstructTopologyFromRepresentation()
 	{	
-		//TODO: MAKE STRONGLY TYPED STRUCTURAL OPERATOR AND REPLACE THIS (here and in quaternion)
-		TreeNode compiledTensor = CompileBranch(dim.Length, new int[dim.Length]);
-		//replace only the sub nodes to keep the special properties of the tensor object
-		this.ReplaceSubNode(compiledTensor.SubNode1, 1);
-		this.ReplaceSubNode(compiledTensor.SubNode2, 2);
+		//TODO: make cleaner
+		Tensor compiledTensor = (Tensor)CompileBranch(dim.Length, new int[dim.Length]);
+		this.ReplaceWithTree(compiledTensor);
 	}
 	
 	//Helper method for CRFT
@@ -147,9 +145,9 @@ public class Tensor : TreeNode
 		for (int i = 0; i < dim[dim.Length - r]; i++) {
 			nextIndex[l - r] = i;
 			if (r > 1) {
-				lastSN = new TensorBranch(new O_Structure(lastSN, CompileBranch(r - 1, nextIndex)));
+				lastSN = new TensorBranch(new O_Structure<Tensor>(lastSN, CompileBranch(r - 1, nextIndex)));
 			} else {
-				lastSN = new TensorBranch(new O_Structure(lastSN, representation[nextIndex]));
+				lastSN = new TensorBranch(new O_Structure<Tensor>(lastSN, representation[nextIndex]));
 			}
 		}
 		
@@ -177,7 +175,7 @@ public class Tensor : TreeNode
 //diagonal to the LEFT, with each scalar being a leaf on the RIGHT side of it
 public class TensorBranch : TreeNode
 {
-	public TensorBranch(O_Structure O) : base(O, true)
+	public TensorBranch(O_Structure<Tensor> O) : base(O, true)
 	{
 	}
 }

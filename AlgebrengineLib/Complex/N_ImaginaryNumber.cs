@@ -9,12 +9,30 @@ public class ImaginaryNumber : TreeNode
     {
         
     }
+    //=========================================================================
+    //TODO: Clean up constructors
     public ImaginaryNumber(double num, ComplexUnit.Unit u)
     {
-        Real r = new Real(num);
+        Real r = new(num);
         ComplexUnit c = new ComplexUnit(u);
         this.ReplaceWithTree(new(new O_ImaginaryAssignment(r, c)));
     }
+    public ImaginaryNumber(double num, ComplexUnit i)
+    {
+        Real r = new(num);
+        this.ReplaceWithTree(new(new O_ImaginaryAssignment(r, i)));
+    }
+    public ImaginaryNumber(ComplexElementNode r, ComplexUnit.Unit u)
+    {
+        ComplexUnit c = new ComplexUnit(u);
+        this.ReplaceWithTree(new(new O_ImaginaryAssignment(r, c)));
+    }
+    public ImaginaryNumber(ComplexElementNode r, ComplexUnit i)
+    {
+        this.ReplaceWithTree(new(new O_ImaginaryAssignment(r, i)));
+    }
+
+    
 
     public ComplexUnit GetUnit()
     {

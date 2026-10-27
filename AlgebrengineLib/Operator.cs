@@ -77,7 +77,7 @@ public interface IConstrainedInput<in ST1, in ST2> where ST1 : TreeNode where ST
 	public void Setup(ST1 sn1, ST2 sn2);
 }
 
-public abstract class OperatorBase<PT, ST1, ST2> : OperatorBase, IConstrainedOutput<PT>, IConstrainedInput<ST1, ST2> where PT : TreeNode, new() where ST1 : TreeNode, new() where ST2: TreeNode, new()
+public abstract class OperatorBase<PT, ST1, ST2> : OperatorBase, IConstrainedOutput<PT>, IConstrainedInput<ST1, ST2> where PT : TreeNode, new() where ST1 : TreeNode where ST2: TreeNode
 {
 	ST1 SubNode1 = (ST1)TreeNode.INVALID_ELEMENT("Operator SubNode1 Not Set", true);
 	ST2 SubNode2 = (ST2)TreeNode.INVALID_ELEMENT("Operator SubNode2 Not Set", true);
@@ -194,7 +194,8 @@ public abstract class OperatorBase<PT, ST1, ST2> : OperatorBase, IConstrainedOut
 
 
 //Special operator for signifying the sub nodes are just part of a larger object, and are not interacting mathematically
-public class O_Structure : OperatorBase<TreeNode, TreeNode, TreeNode> {
+public class O_Structure<CompiledElement> : OperatorBase<CompiledElement, TreeNode, TreeNode> where CompiledElement : TreeNode, new()
+{
     //can't be commutative or associative: structural elements are meant to be in a specific configuration
     public override bool Commutative {get {return true;}}
     public override Type[] Associatives {get {return [];}}
