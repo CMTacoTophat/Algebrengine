@@ -7,6 +7,4 @@ public class O_ImaginaryAssignment : OperatorBase<ImaginaryNumber, ComplexElemen
     public override bool Commutative {get {return false;}}
     public override Type[] Associatives {get {return [];}}
     public override string TextRep {get {return "";}}
-
-	protected override PropertyBase simplificationProperty { get{ return new P_Reflexive();}}
 }

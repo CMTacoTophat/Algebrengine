@@ -124,7 +124,7 @@ public abstract class OperatorBase<PT, ST1, ST2> : OperatorBase, IConstrainedOut
 
 
 	//Use properties to simplify, as they can handle the necessary logic
-	protected abstract PropertyBase simplificationProperty {get;}
+	protected virtual PropertyBase simplificationProperty {get {return new P_Reflexive();}}
 	public PT GetSimplified(bool recursive = false)
 	{
 		if (Parent.isEndValue)
@@ -205,8 +205,6 @@ public class O_Structure<CompiledElement> : OperatorBase<CompiledElement, TreeNo
 	{
 		
 	}
-
-    protected override PropertyBase simplificationProperty { get{ return new P_Reflexive();}}
 }
 
 public class INVALID_OPERATOR : OperatorBase<TreeNode, TreeNode, TreeNode>
@@ -221,6 +219,4 @@ public class INVALID_OPERATOR : OperatorBase<TreeNode, TreeNode, TreeNode>
 		cause = causeOfInvalidity;
 		if (!suppressCreationWarning) Console.WriteLine("WARNING: Invalid operator created! | Cause: \"" + cause);
 	}
-
-    protected override PropertyBase simplificationProperty {get{return new P_Reflexive();}}
 }
