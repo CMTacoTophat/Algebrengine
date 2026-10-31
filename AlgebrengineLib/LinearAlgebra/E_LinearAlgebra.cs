@@ -49,6 +49,10 @@ public interface IConstrainedLinearAlgebraElement<in InElement, out OutElement> 
 	public OutElement Add(Scalar otherNode);
 	public OutElement Multiply(InElement otherNode);
 	public OutElement Multiply(Scalar otherNode);
+
+	//TODO: Confirm this is a good architecture for stuff like this
+	public void Negate();
+	public void Invert(); 
 }
 
 
@@ -74,5 +78,14 @@ public class Scalar : TreeNode, IConstrainedLinearAlgebraElement<Scalar, Scalar>
 	public Scalar Multiply(Scalar otherNode)
 	{
 		return new(this.ScalarVal * otherNode.ScalarVal);
+	}
+
+	public void Negate()
+	{
+		this.ScalarVal *= -1;
+	}
+	public void Invert()
+	{
+		this.ScalarVal = 1/this.ScalarVal;
 	}
 }

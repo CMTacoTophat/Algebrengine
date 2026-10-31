@@ -82,11 +82,18 @@ public class TreeNode
 		id = GlobalElemCount++;
 	}
 
-	//With this class, there is no way to program a TreeNode-inherited class without writing a special constructor,
-	//requiring developers to not have orphaned nodes (with only a few small exceptions, as seen below)
-	public TreeNode(string vN, string vD = "x")
+	public TreeNode(string vN, string vD = "x", bool assumeAdd = false)
 	{
 		MakeVariable(vN, vD);
+
+		//REMINDER: treenodes have variable names and descriptions allows them
+		//to, by default, TAKE the value from the store, NOT to be added to it.
+		//for properties, they are already added via the CheckIfSimilar
+		if (assumeAdd && !Store.HasVariable(this))
+		{
+			Store.AddVariable(vN, this, out _);
+		}
+
 		AddToGlobalElements(this);
 	}
 	
@@ -172,14 +179,14 @@ public class TreeNode
 			//if they are both the end value
 			if (n1.isEndValue && n2.isEndValue) {
 				if (connectVariables) { 
-					Store.AddVariable(n1.variableName, n2, out bool s); 
+					Store.AddVariable(n1.variableName, n2, out bool s, true); // in case it was previously checked with a different set of nodes
 					if (!s) Console.WriteLine("Error: could not connect variable!");
 				}
 				return true;
 			//if there is a mismatch, but because n2 could be an extension
 			} else if (checkIfExtension && n1.isEndValue) { 
 				if (connectVariables) { 
-					Store.AddVariable(n1.variableName, n2, out bool s); 
+					Store.AddVariable(n1.variableName, n2, out bool s, true); 
 					if (!s) Console.WriteLine("Error: could not connect variable!");
 				}
 				return true;
@@ -404,7 +411,12 @@ public class TreeNode
 	}
 	public static TreeNode INVALID_ELEMENT(string causeOfInvalidity, bool suppressCreationWarning = false)
 	{
-        TreeNode iv = new()
+		return INVALID_ELEMENT<TreeNode>(causeOfInvalidity, suppressCreationWarning);
+	}
+
+	public static INode INVALID_ELEMENT<INode>(string causeOfInvalidity, bool suppressCreationWarning = false) where INode : TreeNode, new()
+	{
+		INode iv = new()
         {
             cause = causeOfInvalidity,
             isInvalidElement = true

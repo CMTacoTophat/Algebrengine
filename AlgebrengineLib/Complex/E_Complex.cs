@@ -37,6 +37,10 @@ public interface IConstrainedComplexElement<in InElement, out OutElement> : IUnc
 	public OutElement Add(Real otherNode);
 	public OutElement Multiply(InElement otherNode);
 	public OutElement Multiply(Real otherNode);
+
+	//TODO: Confirm this is a good architecture for stuff like this
+	public void Negate();
+	public void Invert(); 
 }
 
 
@@ -62,5 +66,13 @@ public class Real : TreeNode, IConstrainedComplexElement<Real, Real>
 	public Real Multiply(Real otherNode)
 	{
 		return new(this.RealVal * otherNode.RealVal);
+	}
+	public void Negate()
+	{
+		this.RealVal *= -1;
+	}
+	public void Invert()
+	{
+		this.RealVal = 1/this.RealVal;
 	}
 }

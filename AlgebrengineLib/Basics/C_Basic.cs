@@ -21,7 +21,7 @@ public class Number : TreeNode, IConstrainedComplexElement<Number, Number>, ICon
 	public Number(double val) : base(val) {
 		NumberVal = val;
         //Example statement below: notice how there are no compiler warnings if mathematically valid
-        Number n = new Number(new O_Addition_LAElement(new Number(1), new Scalar(2)));
+        Number n = new Number(new O_Addition(new Number(1), new Scalar(2)));
 	}
 
     public Number(IConstrainedOutput<LinearAlgebraElementNode> O) : base(O, false) {}
@@ -59,5 +59,15 @@ public class Number : TreeNode, IConstrainedComplexElement<Number, Number>, ICon
     public Number Multiply(Scalar s)
     {
         return new(this.NumberVal * s.ScalarVal);
+    }
+
+    //to be both (by the virtue of the methods being of the same form)
+    public void Negate()
+    {
+        this.NumberVal *= -1;
+    }
+    public void Invert()
+    {
+        this.NumberVal = 1/this.NumberVal;
     }
 }

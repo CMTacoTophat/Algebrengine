@@ -24,7 +24,7 @@ public class Vector : Tensor {
 	{
 		if (index + 1 > vecDim)
 		{
-			return (Scalar)INVALID_ELEMENT("Vector Index Out of Bounds");
+			return INVALID_ELEMENT<Scalar>("Vector Index Out of Bounds");
 		}
 
 		TreeNode target = this;

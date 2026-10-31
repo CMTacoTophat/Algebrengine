@@ -4,7 +4,7 @@ namespace AlgebrengineLib.LinearAlgebra;
 
 //this file is for the various simplification properties for linear algebra addition
 
-public class P_Simplify_Addition_LAElement : PropertyBase
+public class P_Simplify_Addition : PropertyBase
 {
     protected override TreeNode InputBaseTopo {get
         {
@@ -12,7 +12,7 @@ public class P_Simplify_Addition_LAElement : PropertyBase
             LinearAlgebraElementNode A = new("prop_simplify_addition_la_element_a", "a");
 			LinearAlgebraElementNode B = new("prop_simplify_addition_la_element_b", "b");
 
-            LinearAlgebraElementNode ABSum = new(new O_Addition_LAElement(A, B));
+            LinearAlgebraElementNode ABSum = new(new O_Addition(A, B));
             return ABSum;
         }
     }
@@ -68,7 +68,7 @@ public class P_Simplify_Addition_Vector : PropertyBase
 
             Action<int[]> adder = (int[] ind) =>
             {
-                ABSumElements.Add(new TreeNode(new O_Addition_LAElement(A.GetVectorElement(ind[0]), B.GetVectorElement(ind[0]))));
+                ABSumElements.Add(new TreeNode(new O_Addition(A.GetVectorElement(ind[0]), B.GetVectorElement(ind[0]))));
             };
 
             A.ExecuteForAllIndexCombinations(adder);

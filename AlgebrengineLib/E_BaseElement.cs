@@ -8,6 +8,8 @@ namespace AlgebrengineLib;
 
 //this is the interface to be inherited by any elements DEFINED FOR THE NAMESPACE
 //See the linear algebra, complex number, and basics libraries for examples
+
+//TODO: Add support for generating a copy, and then carrying over the node
 public abstract class UnconstrainedBaseElement : TreeNode
 {
     public UnconstrainedBaseElement(string vN, string vD) : base(vN, vD)

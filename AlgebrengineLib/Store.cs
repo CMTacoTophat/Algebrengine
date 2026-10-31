@@ -11,6 +11,14 @@ public static class Store
 	private static Dictionary<string, TreeNode> VariableStore = new Dictionary<string, TreeNode>
 	{
 	};
+	public static bool HasVariable(string name)
+	{
+		return VariableStore.ContainsKey(name);
+	}
+	public static bool HasVariable(TreeNode t)
+	{
+		return HasVariable(t.variableName);
+	}
 	//These may need to be expanded in the future, and help to reduce codespace
 	public static void AddVariable(string name, TreeNode t, out bool success, bool setIfAlreadyAdded = false)
 	{
