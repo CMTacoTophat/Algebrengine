@@ -4,7 +4,7 @@ public class ComplexUnit : TreeNode
 {
     public enum Unit
     {
-        r, //TODO: Potentially remove?
+        r,
         i,
         j,
         k

@@ -1,8 +1,17 @@
-namespace AlgebrengineLib.Complex;
+using System.Numerics;
 
-//TODO: Add property of built-in Quaternion type (System.Numerics)
+namespace AlgebrengineLib.Complex;
+//Rename system quaternion to not conflate types
+using SysQuaternion = System.Numerics.Quaternion;
+
 public class Quaternion : TreeNode
 {
+    private SysQuaternion systemQuaternion = new(0, 0, 0, 0);
+    public SysQuaternion SystemQuaternion //WARNING: only works when normal double values were given
+    {
+        get {return hasDefiniteValue ? systemQuaternion : new(0, 0, 0, 0);}
+        set {systemQuaternion = value;}
+    }
     public double rVal;
     public double iVal;
     public double jVal;
@@ -16,7 +25,7 @@ public class Quaternion : TreeNode
 
 	public Quaternion () : base () {}
 
-    public Quaternion(IConstrainedOutput<Quaternion> O) : base(O)
+    public Quaternion(IConstrainedOutputOperator<Quaternion> O) : base(O)
     {
         
     }
@@ -28,6 +37,7 @@ public class Quaternion : TreeNode
         jVal = j;
         kVal = k;
         hasDefiniteValue = true;
+        SystemQuaternion = new((float)i, (float)j, (float)k, (float)r);
 
         ComplexBranch kBranch = new(new(INVALID_ELEMENT("End of Quaternion Topology", true), new ImaginaryNumber(k, ComplexUnit.Unit.k)));
         ComplexBranch jBranch = new(new(kBranch, new ImaginaryNumber(j, ComplexUnit.Unit.j)));
@@ -36,22 +46,20 @@ public class Quaternion : TreeNode
         this.ReplaceWithTree(new Quaternion(new O_Structure<Quaternion>(iBranch, new ImaginaryNumber(r))));
     }
 
-    //TODO: Cleanup these two methods
     public Quaternion(ComplexElementNode r, ComplexElementNode i, ComplexElementNode j, ComplexElementNode k)
     {
-        ComplexBranch kBranch = new(new(INVALID_ELEMENT("End of Quaternion Topology", true), new ImaginaryNumber(k, ComplexUnit.Unit.k)));
-        ComplexBranch jBranch = new(new(kBranch, new ImaginaryNumber(j, ComplexUnit.Unit.j)));
-        ComplexBranch iBranch = new(new(jBranch, new ImaginaryNumber(i, ComplexUnit.Unit.i)));
+        ImaginaryNumber kIm = new ImaginaryNumber(k, ComplexUnit.Unit.k);
+        ImaginaryNumber jIm = new ImaginaryNumber(j, ComplexUnit.Unit.j);
+        ImaginaryNumber iIm = new ImaginaryNumber(i, ComplexUnit.Unit.i);
+        ImaginaryNumber rIm = new ImaginaryNumber(r);
         
-        this.ReplaceWithTree(new Quaternion(new O_Structure<Quaternion>(iBranch, new ImaginaryNumber(r))));
-
-        ValidateDefiniteValue();
-        if (hasDefiniteValue)
-        {
-            //TODO: either set values here or completely scrap the definite value architecture
-        }
+        ConstructTopologyHelper(rIm, iIm, jIm, kIm);
     }
     public Quaternion(ImaginaryNumber r, ImaginaryNumber i, ImaginaryNumber j, ImaginaryNumber k)
+    {
+        ConstructTopologyHelper(r, i, j, k);
+    }
+    private void ConstructTopologyHelper(ImaginaryNumber r, ImaginaryNumber i, ImaginaryNumber j, ImaginaryNumber k)
     {
         ComplexBranch kBranch = new(new(INVALID_ELEMENT("End of Quaternion Topology", true), k));
         ComplexBranch jBranch = new(new(kBranch, j));
@@ -59,11 +67,7 @@ public class Quaternion : TreeNode
         
         this.ReplaceWithTree(new Quaternion(new O_Structure<Quaternion>(iBranch, r)));
 
-        ValidateDefiniteValue();
-        if (hasDefiniteValue)
-        {
-            //TODO: either set values here or completely scrap the definite value architecture
-        }
+        ValidateDefiniteValue(out hasDefiniteValue);
     }
 
     public ImaginaryNumber GetComponent(ComplexUnit.Unit comp)

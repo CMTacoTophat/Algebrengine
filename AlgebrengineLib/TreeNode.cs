@@ -5,29 +5,17 @@ using System.Reflection;
 public class TreeNode
 {
 	public TreeNode SubNode1 = INVALID_ELEMENT("TreeNode SubNode 1 not set", true);
-	//The two following operator definitions should be the same
-	//TODO: implement safety type-checking in getter and setter methods
-	public OperatorBase Operator = new INVALID_OPERATOR("TreeNode Operator not set", true);
-	public IConstrainedOutput<TreeNode> ConstrainedOutputOperator = new INVALID_OPERATOR("TreeNode C. O. Operator not set", true);
 	public TreeNode SubNode2 = INVALID_ELEMENT("TreeNode SubNode 2 not set", true);
+
+
+	//The two following operator definitions should be the same object
+	public OperatorBase Operator = new INVALID_OPERATOR("TreeNode Operator not set", true);
+	public IConstrainedOutputOperator<TreeNode> ConstrainedOutputOperator = new INVALID_OPERATOR("TreeNode C. O. Operator not set", true);
+
 	public bool isEndValue; //if it is a leaf
 	public TreeNode Parent = INVALID_ELEMENT("TreeNode Parent not set", true);
 	public int sNNumberForParent = -1; //ONE OR TWO
 	public bool hasDefiniteValue; //for larger structures with all numbers filled, or for values themselves. NOT for trees with all subnodes filled numbers
-	public bool hasScalarRepresentativeValue; //for individual numbers, as display
-	protected double scalarRepresentativeValue; //the actual number, only reasonable if the field above is true
-	public double Value
-	{
-		get
-		{
-			return scalarRepresentativeValue;
-		}
-
-		set
-		{
-			scalarRepresentativeValue = value;
-		}
-	}
 
 	//NOTE: a node that is a variable will have a name, which can be looked up in the Store class to find the TreeNode
 	//which it represents (or eventually may represent)
@@ -62,7 +50,7 @@ public class TreeNode
 	
 	//No constructors are made without arguments to force child classes to implement them
 	//REMINDER: when overriding this, do NOT constrain the operator 
-	public TreeNode(IConstrainedOutput<TreeNode> op, bool iSE = false)
+	public TreeNode(IConstrainedOutputOperator<TreeNode> op, bool iSE = false)
 	{
 		isStructuralElement = iSE;
 		id = GlobalElemCount++;
@@ -76,9 +64,7 @@ public class TreeNode
 	public TreeNode(double val)
 	{
 		hasDefiniteValue = true;
-		hasScalarRepresentativeValue = true;
 		isEndValue = true;
-		scalarRepresentativeValue = val;
 		id = GlobalElemCount++;
 	}
 
@@ -129,32 +115,21 @@ public class TreeNode
 	//---------------------------------------------
 	public void HandleTreeChange(TreeNode oldSelf)
 	{
-		//TODO: Implement (call every time tree is changed - operator, immediate(?) sub-nodes, etc.)
-		_ = ValidateDefiniteValue();
+		ValidateDefiniteValue(out _);
 		alternativeArrangements = GetAlternativeArrangements(true);
 	}
 
-	public bool ValidateDefiniteValue()
+	public void ValidateDefiniteValue(out bool isDef)
 	{
 		//Repair logic
 		if (hasDefiniteValue)
 		{
-			return true;
-		}
-		else if (hasScalarRepresentativeValue)
-		{
-			hasDefiniteValue = true;
-			return true;
-		}
-		else if (!double.IsNaN(scalarRepresentativeValue))
-		{
-			hasDefiniteValue = true;
-			hasScalarRepresentativeValue = true;
-			return true;
+			isDef = true;
 		}
 
-		bool def = SubNode1.ValidateDefiniteValue() && SubNode2.ValidateDefiniteValue();
-		return def;
+        SubNode1.ValidateDefiniteValue(out bool def1);
+        SubNode2.ValidateDefiniteValue(out bool def2);
+		isDef = def1 && def2;
 	}
 
 	/*check if two trees are similar, with support for different definitions
@@ -178,17 +153,11 @@ public class TreeNode
 			
 			//if they are both the end value
 			if (n1.isEndValue && n2.isEndValue) {
-				if (connectVariables) { 
-					Store.AddVariable(n1.variableName, n2, out bool s, true); // in case it was previously checked with a different set of nodes
-					if (!s) Console.WriteLine("Error: could not connect variable!");
-				}
+				ConnectVariablesHelper(connectVariables, n1.variableName, n2);
 				return true;
 			//if there is a mismatch, but because n2 could be an extension
 			} else if (checkIfExtension && n1.isEndValue) { 
-				if (connectVariables) { 
-					Store.AddVariable(n1.variableName, n2, out bool s, true); 
-					if (!s) Console.WriteLine("Error: could not connect variable!");
-				}
+				ConnectVariablesHelper(connectVariables, n1.variableName, n2);
 				return true;
 			//No way to save it
 			} else {
@@ -207,31 +176,29 @@ public class TreeNode
 			//(is an element)
 			if (n1 is UnconstrainedBaseElement B && n2 is IElementImplementer EI && B.IsCompatibleNode(EI))
 			{
-				//TODO: Simplify
-
-				if (connectVariables) { 
-					Store.AddVariable(n1.variableName, n2, out bool s); 
-					if (!s) Console.WriteLine("Error: could not connect variable!");
-				}
+				ConnectVariablesHelper(connectVariables, n1.variableName, n2);
 			}
 			return false; //if it cannot reasonably be replaced
 		} else
 		{
-			if (connectVariables) { 
-					Store.AddVariable(n1.variableName, n2, out bool s); 
-					if (!s) Console.WriteLine("Error: could not connect variable!");
-				}
+			ConnectVariablesHelper(connectVariables, n1.variableName, n2);
 		}
 
 		//if not gauranteed that either is a quantity, keep going
 		bool similar = CheckIfSimilar(n1.SubNode1, n2.SubNode1) && CheckIfSimilar(n1.SubNode2, n2.SubNode2);
 
-		if (similar && connectVariables) { //connect current if the sub-tree ends up being valid
-			Store.AddVariable(n1.variableName, n2, out bool s); 
-			if (!s) Console.WriteLine("Error: could not connect variable!");
+		if (similar) { //connect current if the sub-tree ends up being valid
+			ConnectVariablesHelper(connectVariables, n1.variableName, n2);
 		}
 
 		return similar;
+	}
+	private static void ConnectVariablesHelper(bool canConnect, string varName, TreeNode varNode)
+	{
+		if (canConnect) { 
+			Store.AddVariable(varName, varNode, out bool s); 
+			if (!s) Console.WriteLine("Error: could not connect variable!");
+		}
 	}
 
 	public void ReplaceAsVariable(bool recurse = false) {
@@ -353,7 +320,7 @@ public class TreeNode
 		return variations;
 	}
 
-	private bool CanBeAssociated(TreeNode t, out TreeNode alt)
+	private static bool CanBeAssociated(TreeNode t, out TreeNode alt)
 	{
 		if (t.Operator.Associatives.Length == 0 || !t.Operator.AssociativeWith(t.SubNode1.Operator) || !t.Operator.AssociativeWith(t.SubNode2.Operator))
 		{
@@ -380,7 +347,7 @@ public class TreeNode
 		return true;
 	}
 
-	private bool CanBeCommutated(TreeNode t, out TreeNode alt)
+	private static bool CanBeCommutated(TreeNode t, out TreeNode alt)
 	{
 		if (t.Operator.Commutative)
 		{
@@ -394,21 +361,6 @@ public class TreeNode
 		return true;
 	}
 
-	//Convenence method for tree construction
-	//syntax: node1.Apply<O_Multiplication>(node2.Apply<O_Addition>(node3))
-	public TreeNode Apply<O>(TreeNode t, params object[] opParams) where O : OperatorBase, new()
-	{
-		Type RuntimeType = this.GetType();
-		OperatorBase op = new O();
-		TreeNode? res = (TreeNode?)Activator.CreateInstance(RuntimeType, [this, t, op]);
-		if (res is not null)
-		{
-			return res;
-		} else
-		{
-			return INVALID_ELEMENT("Improper Apply method arguments");	
-		}
-	}
 	public static TreeNode INVALID_ELEMENT(string causeOfInvalidity, bool suppressCreationWarning = false)
 	{
 		return INVALID_ELEMENT<TreeNode>(causeOfInvalidity, suppressCreationWarning);

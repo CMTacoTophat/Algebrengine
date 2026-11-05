@@ -5,11 +5,10 @@ public class Tensor : TreeNode
 	public int[] dim = [];
 	private Dictionary<int[], TreeNode> representation = new();
 	//REAL constructors
-	public Tensor(IConstrainedOutput<Tensor> O) : base(O, false) {}
+	public Tensor(IConstrainedOutputOperator<Tensor> O) : base(O, false) {}
 
 	public Tensor(Dictionary<int[], TreeNode> rep) : base()
 	{
-		//TODO: Replace generic TreeNode's with LinearAlgebraElementNode's
 		representation = rep;
 		dim = new int[rep.ElementAt(0).Key.Length];
 		//initialize dim
@@ -23,7 +22,7 @@ public class Tensor : TreeNode
 		ConstructTopologyFromRepresentation();
 	}
 	
-	public Tensor(int[] shape, params TreeNode[] nodes) : base()
+	public Tensor(int[] shape, params LinearAlgebraElementNode[] nodes) : base()
 	{
 		dim = shape;
 		ConfigureTensor(nodes);
@@ -36,7 +35,7 @@ public class Tensor : TreeNode
 
 	public Tensor() : base () {}
 
-	public void ConfigureTensor(params TreeNode[] nodes)
+	public void ConfigureTensor(params LinearAlgebraElementNode[] nodes)
 	{
 		//build a helper array to get from N-D index to 1-D index
 		//could potentially make this more permanent, as it might be useful elsewhere
@@ -70,12 +69,12 @@ public class Tensor : TreeNode
 		ConstructTopologyFromRepresentation();
 	}
 
-	public TreeNode GetTensorElement(int[] indices)
+	public LinearAlgebraElementNode GetTensorElement(int[] indices)
 	{
 		ConstructRepresentationFromTopology(); //keep this up to date
 		if (!indices.Select(i => i + 1).ToArray().SequenceEqual(dim))
 		{
-			return INVALID_ELEMENT("Tensor Indices Mismatched or Out of Bounds");
+			return INVALID_ELEMENT<LinearAlgebraElementNode>("Tensor Indices Mismatched or Out of Bounds");
 		}
 
 		TreeNode target = this;
@@ -89,10 +88,16 @@ public class Tensor : TreeNode
 			target = target.SubNode2;
 		}
 
-		return target;
+		if (target is LinearAlgebraElementNode laen)
+		{
+			return laen;
+		} else
+		{
+			return INVALID_ELEMENT<LinearAlgebraElementNode>("Tensor child element is not a Linear Algebra element node");
+		}
 	}
 
-	public void SetTensorElement(int[] indices, TreeNode t)
+	public void SetTensorElement(int[] indices, LinearAlgebraElementNode t)
 	{
 		GetTensorElement(indices).ReplaceNode(t);
 		ConstructRepresentationFromTopology();
@@ -131,7 +136,6 @@ public class Tensor : TreeNode
 	
 	protected void ConstructTopologyFromRepresentation()
 	{	
-		//TODO: make cleaner
 		Tensor compiledTensor = (Tensor)CompileBranch(dim.Length, new int[dim.Length]);
 		this.ReplaceWithTree(compiledTensor);
 	}

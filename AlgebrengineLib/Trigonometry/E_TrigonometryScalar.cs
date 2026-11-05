@@ -15,7 +15,7 @@ public class TrigonometricScalarElementNode : ConstrainedBaseElement<ICTSEN_Gene
 	{
 		
 	}
-	public TrigonometricScalarElementNode(IConstrainedOutput<TrigonometricScalarElementNode> op, bool iSE = false)
+	public TrigonometricScalarElementNode(IConstrainedOutputOperator<TrigonometricScalarElementNode> op, bool iSE = false)
     {
         
     }
@@ -47,7 +47,7 @@ public class TrigScalar : TreeNode, IConstrainedTrigonometricScalarElement<TrigS
 		ScalarVal = val;
 	}
 	
-	public TrigScalar(IConstrainedOutput<TrigScalar> O) : base(O, false) {}
+	public TrigScalar(IConstrainedOutputOperator<TrigScalar> O) : base(O, false) {}
 
 	public TrigScalar(string vN, string vD) : base(vN, vD) {}
 

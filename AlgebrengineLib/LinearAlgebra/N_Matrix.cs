@@ -2,7 +2,7 @@ namespace AlgebrengineLib.LinearAlgebra;
 
 public class Matrix : Tensor
 {
-	public Matrix(IConstrainedOutput<Matrix> O) : base(O) {
+	public Matrix(IConstrainedOutputOperator<Matrix> O) : base(O) {
 	
 	}
 	

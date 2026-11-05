@@ -1,6 +1,10 @@
 namespace AlgebrengineLib;
 
-//TODO: Implement proper type-forcing for properties!
+//Since trees are not constructed with properties, but they are things applied later, strict type forcing
+//doesn't seem necessary for now. In the future, however, one would have to make an unconstrained base, and
+//most likely constrained input/output interfaces, with one generic each, representing the root node for
+//the input topology and output topology. The constrained class would then have to be modified to use these
+//generics for the IBT and OBT, as well as during the Apply/DefaulyApply methods.
 public abstract class PropertyBase
 {
 	public bool enabled = true;

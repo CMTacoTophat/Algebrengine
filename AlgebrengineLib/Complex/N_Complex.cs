@@ -10,7 +10,7 @@ public class ComplexNumber : Quaternion
 
 	public ComplexNumber () : base () {}
 
-    public ComplexNumber(IConstrainedOutput<ComplexNumber> O) : base(O)
+    public ComplexNumber(IConstrainedOutputOperator<ComplexNumber> O) : base(O)
     {
         
     }

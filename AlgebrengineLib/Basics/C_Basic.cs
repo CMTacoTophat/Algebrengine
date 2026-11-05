@@ -24,7 +24,7 @@ public class Number : TreeNode, IConstrainedComplexElement<Number, Number>, ICon
         Number n = new Number(new O_Addition(new Number(1), new Scalar(2)));
 	}
 
-    public Number(IConstrainedOutput<LinearAlgebraElementNode> O) : base(O, false) {}
+    public Number(IConstrainedOutputOperator<LinearAlgebraElementNode> O) : base(O, false) {}
 
     public Number Add(Number n)
     {

@@ -15,7 +15,7 @@ public class ComplexElementNode : ConstrainedBaseElement<ICCEN_Generic>
 	{
 		
 	}
-	public ComplexElementNode(IConstrainedOutput<UnconstrainedBaseElement> op, bool iSE = false)
+	public ComplexElementNode(IConstrainedOutputOperator<UnconstrainedBaseElement> op, bool iSE = false)
     {
         
     }
@@ -37,8 +37,6 @@ public interface IConstrainedComplexElement<in InElement, out OutElement> : IUnc
 	public OutElement Add(Real otherNode);
 	public OutElement Multiply(InElement otherNode);
 	public OutElement Multiply(Real otherNode);
-
-	//TODO: Confirm this is a good architecture for stuff like this
 	public void Negate();
 	public void Invert(); 
 }
@@ -51,7 +49,7 @@ public class Real : TreeNode, IConstrainedComplexElement<Real, Real>
 		RealVal = val;
 	}
 	
-	public Real(IConstrainedOutput<Real> O) : base(O, false) {}
+	public Real(IConstrainedOutputOperator<Real> O) : base(O, false) {}
 
 	public Real(string vN, string vD) : base(vN, vD) {}
 

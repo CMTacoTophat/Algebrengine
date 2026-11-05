@@ -3,7 +3,7 @@ namespace AlgebrengineLib.LinearAlgebra;
 public class Vector : Tensor { 
 	//Possibly inherit from Matrix?
 	public int vecDim = 0;
-	public Vector(IConstrainedOutput<Vector> O) : base(O) {}
+	public Vector(IConstrainedOutputOperator<Vector> O) : base(O) {}
 
 	public Vector(params TreeNode[] elements) : base()
 	{

@@ -5,7 +5,7 @@ namespace AlgebrengineLib.Complex;
 
 public class ImaginaryNumber : TreeNode
 {
-    public bool filledOut; //TODO: come up with better name 
+    public bool filledOut; //Need a better name 
     public ComplexUnit.Unit unit;
 
 
@@ -14,7 +14,7 @@ public class ImaginaryNumber : TreeNode
     public ImaginaryNumber(string vN, string vD) : base(vN, vD) {}
 
 	public ImaginaryNumber() : base () {}
-    public ImaginaryNumber(IConstrainedOutput<ImaginaryNumber> o) : base(o) {}
+    public ImaginaryNumber(IConstrainedOutputOperator<ImaginaryNumber> o) : base(o) {}
 
     //SINGLE VALUE/NODE: assume real only
     public ImaginaryNumber(double num)
@@ -72,7 +72,8 @@ public class ImaginaryNumber : TreeNode
         }
     }
 
-    //TODO: Check if these methods break the standard architecture
+    //NOTE: These methods are mostly helpers, and don't particularly break standard architecture - just keep in mind they are NOT for
+    //expression construction
     public ImaginaryNumber Add(ImaginaryNumber other)
     {
         if (other.unit != this.unit)
@@ -134,7 +135,7 @@ public class ImaginaryNumber : TreeNode
         if (this.unit == other.unit)
         {
             c = new(ComplexUnit.Unit.r);
-            negate = true;
+            negate = this.unit != ComplexUnit.Unit.r; //only negate when matching if not real
         } else if (this.unit != ComplexUnit.Unit.r && other.unit != ComplexUnit.Unit.r)
         {
             ComplexUnit.Unit[] comps = [ComplexUnit.Unit.i, ComplexUnit.Unit.j, ComplexUnit.Unit.k];
@@ -166,7 +167,6 @@ public class ImaginaryNumber : TreeNode
         return new(num, c);
     }
 
-    //TODO: Improve
     public ImaginaryNumber Negated()
     {
         GetNumber().node!.Negate();

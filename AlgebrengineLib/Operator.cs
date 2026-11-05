@@ -2,9 +2,8 @@ namespace AlgebrengineLib;
 
 public abstract class OperatorBase
 {
-	//WARNING: NOT CONSTRAINED LIKE THE SUBNODES (potential TODO?)
 	public TreeNode Parent = TreeNode.INVALID_ELEMENT("Unset operator parent", false);
-	public abstract bool Commutative {get;} //TODO: potentially set this automatically for OperatorBase<t1, t2, t3> if t2 !-= t3
+	public abstract bool Commutative {get;}
 	public abstract Type[] Associatives {get;}
 	public abstract string TextRep {get;} //NOTE: spaces are NOT added later - they should be included by default if wanted
 
@@ -62,11 +61,8 @@ public abstract class OperatorBase
 */
 
 
-
-
-
 				/* "simplifiable" */
-public interface IConstrainedOutput<out PT> where PT : TreeNode
+public interface IConstrainedOutputOperator<out PT> where PT : TreeNode
 {
 	public PT GetSimplified(bool recursive);
 	public PT GetUnsimplified(TreeNode original);
@@ -77,7 +73,7 @@ public interface IConstrainedInput<in ST1, in ST2> where ST1 : TreeNode where ST
 	public void Setup(ST1 sn1, ST2 sn2);
 }
 
-public abstract class OperatorBase<PT, ST1, ST2> : OperatorBase, IConstrainedOutput<PT>, IConstrainedInput<ST1, ST2> where PT : TreeNode, new() where ST1 : TreeNode where ST2: TreeNode
+public abstract class OperatorBase<PT, ST1, ST2> : OperatorBase, IConstrainedOutputOperator<PT>, IConstrainedInput<ST1, ST2> where PT : TreeNode, new() where ST1 : TreeNode where ST2: TreeNode
 {
 	ST1 SubNode1 = (ST1)TreeNode.INVALID_ELEMENT("Operator SubNode1 Not Set", true);
 	ST2 SubNode2 = (ST2)TreeNode.INVALID_ELEMENT("Operator SubNode2 Not Set", true);

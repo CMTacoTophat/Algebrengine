@@ -27,7 +27,7 @@ public class LinearAlgebraElementNode : ConstrainedBaseElement<ICLAE_Generic>//,
 	{
 		
 	}
-	public LinearAlgebraElementNode(IConstrainedOutput<UnconstrainedBaseElement> op, bool iSE = false)
+	public LinearAlgebraElementNode(IConstrainedOutputOperator<UnconstrainedBaseElement> op, bool iSE = false)
     {
         
     }
@@ -49,8 +49,6 @@ public interface IConstrainedLinearAlgebraElement<in InElement, out OutElement> 
 	public OutElement Add(Scalar otherNode);
 	public OutElement Multiply(InElement otherNode);
 	public OutElement Multiply(Scalar otherNode);
-
-	//TODO: Confirm this is a good architecture for stuff like this
 	public void Negate();
 	public void Invert(); 
 }
@@ -63,7 +61,7 @@ public class Scalar : TreeNode, IConstrainedLinearAlgebraElement<Scalar, Scalar>
 		ScalarVal = val;
 	}
 	
-	public Scalar(IConstrainedOutput<LinearAlgebraElementNode> O) : base(O, false) {}
+	public Scalar(IConstrainedOutputOperator<LinearAlgebraElementNode> O) : base(O, false) {}
 
 	public Scalar(string vN, string vD) : base(vN, vD) {}
 

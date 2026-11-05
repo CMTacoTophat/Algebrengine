@@ -16,7 +16,7 @@ public abstract class UnconstrainedBaseElement : TreeNode
     {
         
     }
-    public UnconstrainedBaseElement(IConstrainedOutput<UnconstrainedBaseElement> op, bool iSE = false)
+    public UnconstrainedBaseElement(IConstrainedOutputOperator<UnconstrainedBaseElement> op, bool iSE = false)
     {
         
     }
@@ -45,18 +45,25 @@ public abstract class ConstrainedBaseElement<ImpType> : UnconstrainedBaseElement
 			this.ReplaceWithTree(n);
 		} else
 		{
-			//TODO: Figure out
+			// Figure out
 		}
         
 	}
     public ConstrainedBaseElement(string vN, string vD) : base(vN, vD)
     {
-        //TODO: figure out how to force it to be replaced as a variable here
+        //NOTE: might not be necesary, should check
         this.ReplaceAsVariable();
     }
-    public ConstrainedBaseElement(IConstrainedOutput<UnconstrainedBaseElement> op, bool iSE = false)
+    public ConstrainedBaseElement(IConstrainedOutputOperator<UnconstrainedBaseElement> op, bool iSE = false)
     {
-        //TODO: Set node here
+        ConstrainedOutputOperator = op;
+        if (op is OperatorBase o)
+        {
+            Operator = o;
+        } else
+        {
+            Operator = new INVALID_OPERATOR("Constrained Base Element operator argument does not derive from OperatorBase", false);
+        }
     }
     public ConstrainedBaseElement()
     {

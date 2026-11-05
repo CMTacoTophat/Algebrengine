@@ -1,5 +1,11 @@
 namespace AlgebrengineLib.Rendering;
 
+//This file is meant to contain a pre-made layout infrastructure for rendering, to help translate the expressions into more familiar
+//mathematical notation. Although not strictly necessary, it will likely be used in many places.
+//Some conversion to a popularized type-setting language (like LaTeX) should also be done at some point
+
+
+
 //Assuming each node is scaled properly, so a symbol like "a" is ~1x1 scale (or they're all at least made consistently), go up the tree
 public class RenderingInfo2D
 {

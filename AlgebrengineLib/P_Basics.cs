@@ -8,13 +8,13 @@ public class P_Reflexive : PropertyBase
 {
     protected override TreeNode InputBaseTopo { get
         {
-            return new TreeNode("prop_reflexive", "???"); //TODO: figure out text representation (if necessary)
+            return new TreeNode("prop_reflexive", "A"); //might need a better display text (currently "A = A")
         }
     }
 
     protected override TreeNode OutputBaseTopo {get
         {
-            return new TreeNode("prop_reflexive", "???");
+            return new TreeNode("prop_reflexive", "A");
         }
     }
 }
