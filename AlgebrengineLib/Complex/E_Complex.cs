@@ -1,4 +1,5 @@
 namespace AlgebrengineLib.Complex;
+using AlgebrengineLib.ElementaryAlgebra;
 
 using ICCEN_Generic = IConstrainedComplexElement<IUnconstrainedComplexElement, IUnconstrainedComplexElement>;
 
@@ -26,19 +27,14 @@ public class ComplexElementNode : ConstrainedBaseElement<ICCEN_Generic>
 }
 
 //DO NOT DERIVE FROM THIS INTERFACE UNLESS ABSOLUTELY NECESSARY
-public interface IUnconstrainedComplexElement : IElementImplementer
+public interface IUnconstrainedComplexElement : IElementImplementer, IUnconstrainedAlgebraElement
 {
 	
 }
 
-public interface IConstrainedComplexElement<in InElement, out OutElement> : IUnconstrainedComplexElement where InElement : IUnconstrainedComplexElement where OutElement : IUnconstrainedComplexElement
+public interface IConstrainedComplexElement<in InElement, out OutElement> : IUnconstrainedComplexElement, IConstrainedAlgebraElement<InElement, OutElement> where InElement : IUnconstrainedComplexElement, IUnconstrainedAlgebraElement where OutElement : IUnconstrainedComplexElement, IUnconstrainedAlgebraElement
 {
-	public OutElement Add(InElement otherNode);
-	public OutElement Add(Real otherNode);
-	public OutElement Multiply(InElement otherNode);
-	public OutElement Multiply(Real otherNode);
-	public void Negate();
-	public void Invert(); 
+	
 }
 
 
@@ -61,10 +57,29 @@ public class Real : TreeNode, IConstrainedComplexElement<Real, Real>
 	{
 		return new(this.RealVal + otherNode.RealVal);
 	}
+	public Real Add(Number otherNode)
+	{
+		return new(this.RealVal + otherNode.NumberVal);
+	}
 	public Real Multiply(Real otherNode)
 	{
 		return new(this.RealVal * otherNode.RealVal);
 	}
+	public Real Multiply(Number otherNode)
+	{
+		return new(this.RealVal * otherNode.NumberVal);
+	}
+
+	public Real Power(Real otherNode)
+	{
+		return new(Math.Pow(this.RealVal, otherNode.RealVal));
+	}
+	public Real Power(Number otherNode)
+	{
+		return new(Math.Pow(this.RealVal, otherNode.NumberVal));
+	}
+
+
 	public void Negate()
 	{
 		this.RealVal *= -1;

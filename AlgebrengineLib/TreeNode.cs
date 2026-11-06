@@ -26,7 +26,7 @@ public class TreeNode
 	//"prop_distributive_forward_a"
 	public bool isVariable; //for substitution and such
 	public string variableName = ""; //used for the Store table, only usable if field above is true
-	public string variableDisplayValue = "x"; //how it actually looks. For more graphical programs, the type may have to be more
+	public string textualDisplayValue = "x"; //how it actually looks. For more graphical programs, the type may have to be more
 	//nuanced than  "string"
 	public bool isStructuralElement; //if it is part of a larger object (i. e., a row in a matrix)
 	public bool isInvalidElement = false; //if the treenode doesn't exist (i. e., 4th component of 3D vector)
@@ -93,7 +93,7 @@ public class TreeNode
 		isVariable = true;
 		isEndValue = true; //because theres not anything (yet) extending from it
 		variableName = varName;
-		variableDisplayValue = varDisplay;
+		textualDisplayValue = varDisplay;
 	}
 
 	public TreeNode GenerateCopy(bool recurse = true)
@@ -360,6 +360,20 @@ public class TreeNode
 		alt = new(t.ConstrainedOutputOperator);
 		return true;
 	}
+
+	//Super simplified. To be fleshed out
+	public string GetTextualRepresentation()
+	{
+		if (isEndValue || isVariable)
+		{
+			return textualDisplayValue;
+		}
+
+		return "(" + SubNode1.GetTextualRepresentation() + Operator.TextRep + SubNode2.GetTextualRepresentation() + ")";
+	}
+
+	//===============================================================================================================================
+	//===============================================================================================================================
 
 	public static TreeNode INVALID_ELEMENT(string causeOfInvalidity, bool suppressCreationWarning = false)
 	{

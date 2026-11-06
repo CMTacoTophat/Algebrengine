@@ -1,4 +1,5 @@
 namespace AlgebrengineLib.Trigonometry;
+using AlgebrengineLib.ElementaryAlgebra;
 
 using ICTSEN_Generic = IConstrainedTrigonometricScalarElement<IUnconstrainedTrigonometricScalarElement, IUnconstrainedTrigonometricScalarElement>;
 
@@ -26,17 +27,14 @@ public class TrigonometricScalarElementNode : ConstrainedBaseElement<ICTSEN_Gene
 }
 
 //DO NOT DERIVE FROM THIS INTERFACE UNLESS ABSOLUTELY NECESSARY
-public interface IUnconstrainedTrigonometricScalarElement : IElementImplementer
+public interface IUnconstrainedTrigonometricScalarElement : IElementImplementer, IUnconstrainedAlgebraElement
 {
 	
 }
 
-public interface IConstrainedTrigonometricScalarElement<in InElement, out OutElement> : IUnconstrainedTrigonometricScalarElement where InElement : IUnconstrainedTrigonometricScalarElement where OutElement : IUnconstrainedTrigonometricScalarElement
+public interface IConstrainedTrigonometricScalarElement<in InElement, out OutElement> : IUnconstrainedTrigonometricScalarElement, IConstrainedAlgebraElement<InElement, OutElement> where InElement : IUnconstrainedTrigonometricScalarElement, IUnconstrainedAlgebraElement where OutElement : IUnconstrainedTrigonometricScalarElement, IUnconstrainedAlgebraElement
 {
-	public OutElement Add(InElement otherNode);
-	public OutElement Add(TrigScalar otherNode);
-	public OutElement Multiply(InElement otherNode);
-	public OutElement Multiply(TrigScalar otherNode);
+	
 }
 
 // Node for the input to trigonometric functions - can be, but not 
@@ -57,12 +55,36 @@ public class TrigScalar : TreeNode, IConstrainedTrigonometricScalarElement<TrigS
 	}
 
     public TrigScalar Add(TrigScalar otherNode)
-    {
-        return new(this.ScalarVal + otherNode.ScalarVal);
-    }
+	{
+		return new(this.ScalarVal + otherNode.ScalarVal);
+	}
+	public TrigScalar Add(Number otherNode)
+	{
+		return new(this.ScalarVal + otherNode.NumberVal);
+	}
+	public TrigScalar Multiply(TrigScalar otherNode)
+	{
+		return new(this.ScalarVal * otherNode.ScalarVal);
+	}
+	public TrigScalar Multiply(Number otherNode)
+	{
+		return new(this.ScalarVal * otherNode.NumberVal);
+	}
 
-    public TrigScalar Multiply(TrigScalar otherNode)
-    {
-        return new(this.ScalarVal * otherNode.ScalarVal);
-    }
+	public TrigScalar Power(TrigScalar otherNode)
+	{
+		return new(Math.Pow(this.ScalarVal,otherNode.ScalarVal));
+	}
+	public TrigScalar Power(Number otherNode)
+	{
+		return new(Math.Pow(this.ScalarVal, otherNode.NumberVal));
+	}
+	public void Invert()
+	{
+		this.ScalarVal = 1/this.ScalarVal;
+	}
+	public void Negate()
+	{
+		this.ScalarVal *= -1;
+	}
 }

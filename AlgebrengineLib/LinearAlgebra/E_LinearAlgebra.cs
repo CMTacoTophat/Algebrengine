@@ -1,6 +1,9 @@
 using System.Numerics;
+using AlgebrengineLib.ElementaryAlgebra;
 
 namespace AlgebrengineLib.LinearAlgebra;
+
+
 
 
 /*
@@ -11,6 +14,16 @@ any newly-created nodes that wish to take part in said algebra. It does this by 
 unconstrained interface, merely to check if an node is valid for linear algebra (as
 all nodes MUST inherit from the constrained version, which is more difficult to check), and
 an unconstrained interface, which actually specifies the behavior
+
+*/
+
+/*
+	TODO:
+	
+	A. 	Find a better place to put this to-do
+	B. 	Make MANY of the classes partial, so modders can extend them to use their own node interfaces, such that
+		connction would be seamless
+
 
 */
 using ICLAE_Generic = IConstrainedLinearAlgebraElement<IUnconstrainedLinearAlgebraElement, IUnconstrainedLinearAlgebraElement>;
@@ -38,19 +51,19 @@ public class LinearAlgebraElementNode : ConstrainedBaseElement<ICLAE_Generic>//,
 }
 
 //DO NOT DERIVE FROM THIS INTERFACE UNLESS ABSOLUTELY NECESSARY
-public interface IUnconstrainedLinearAlgebraElement : IElementImplementer
+public interface IUnconstrainedLinearAlgebraElement : IElementImplementer, IUnconstrainedAlgebraElement
 {
 	
 }
 
-public interface IConstrainedLinearAlgebraElement<in InElement, out OutElement> : IUnconstrainedLinearAlgebraElement where InElement : IUnconstrainedLinearAlgebraElement where OutElement : IUnconstrainedLinearAlgebraElement
-{
+public interface IConstrainedLinearAlgebraElement<in InElement, out OutElement> : IUnconstrainedLinearAlgebraElement, IConstrainedAlgebraElement<InElement, OutElement> where InElement : IUnconstrainedLinearAlgebraElement, IUnconstrainedAlgebraElement where OutElement : IUnconstrainedLinearAlgebraElement, IUnconstrainedAlgebraElement
+{/* 
 	public OutElement Add(InElement otherNode);
 	public OutElement Add(Scalar otherNode);
 	public OutElement Multiply(InElement otherNode);
 	public OutElement Multiply(Scalar otherNode);
 	public void Negate();
-	public void Invert(); 
+	public void Invert();  */
 }
 
 
@@ -73,9 +86,26 @@ public class Scalar : TreeNode, IConstrainedLinearAlgebraElement<Scalar, Scalar>
 	{
 		return new(this.ScalarVal + otherNode.ScalarVal);
 	}
+	public Scalar Add(Number otherNode)
+	{
+		return new(this.ScalarVal + otherNode.NumberVal);
+	}
 	public Scalar Multiply(Scalar otherNode)
 	{
 		return new(this.ScalarVal * otherNode.ScalarVal);
+	}
+	public Scalar Multiply(Number otherNode)
+	{
+		return new(this.ScalarVal * otherNode.NumberVal);
+	}
+
+	public Scalar Power(Scalar otherNode)
+	{
+		return new(Math.Pow(this.ScalarVal,otherNode.ScalarVal));
+	}
+	public Scalar Power(Number otherNode)
+	{
+		return new(Math.Pow(this.ScalarVal, otherNode.NumberVal));
 	}
 
 	public void Negate()

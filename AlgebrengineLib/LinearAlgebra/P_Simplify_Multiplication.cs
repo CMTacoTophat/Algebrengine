@@ -4,7 +4,7 @@ namespace AlgebrengineLib.LinearAlgebra;
 //including inner and outer products
 
 //TODO: implement inner and outer products
-public class P_Simplify_Multiplication_LAElement : PropertyBase
+public class P_Simplify_Multiplication : PropertyBase
 {
     protected override TreeNode InputBaseTopo {get
         {
@@ -12,7 +12,7 @@ public class P_Simplify_Multiplication_LAElement : PropertyBase
             LinearAlgebraElementNode A = new("prop_simplify_multiplication_scalar_a", "a");
 			LinearAlgebraElementNode B = new("prop_simplify_multiplication_scalar_b", "b");
 
-            LinearAlgebraElementNode ABSum = new(new O_Multiplication_LAElement(A, B));
+            LinearAlgebraElementNode ABSum = new(new O_Multiplication(A, B));
             return ABSum;
         }
     }

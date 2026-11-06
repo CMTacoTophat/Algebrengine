@@ -9,8 +9,8 @@ public class P_Simplify_Addition : PropertyBase
     protected override TreeNode InputBaseTopo {get
         {
             //A + B = C
-            LinearAlgebraElementNode A = new("prop_simplify_addition_la_element_a", "a");
-			LinearAlgebraElementNode B = new("prop_simplify_addition_la_element_b", "b");
+            LinearAlgebraElementNode A = new("prop_simplify_addition_scalar_a", "a");
+			LinearAlgebraElementNode B = new("prop_simplify_addition_scalar_b", "b");
 
             LinearAlgebraElementNode ABSum = new(new O_Addition(A, B));
             return ABSum;
@@ -20,8 +20,8 @@ public class P_Simplify_Addition : PropertyBase
     protected override TreeNode OutputBaseTopo {get
         {
             //A + B = C
-			LinearAlgebraElementNode A = new("prop_simplify_addition_la_element_a", "a");
-			LinearAlgebraElementNode B = new("prop_simplify_addition_la_element_b", "b");
+			LinearAlgebraElementNode A = new("prop_simplify_addition_scalar_a", "a");
+			LinearAlgebraElementNode B = new("prop_simplify_addition_scalar_b", "b");
 			
             LinearAlgebraElementNode C;
             C = new(A.node!.Add(B.node!));

@@ -13,7 +13,7 @@ public class P_Distributive_LAElement : PropertyBase
 			LinearAlgebraElementNode C = new("prop_distributive_forward_c", "c");
 			
 			LinearAlgebraElementNode BCSum = new(new O_Addition(B, C));
-			LinearAlgebraElementNode AProd = new(new O_Multiplication_LAElement(A, BCSum));
+			LinearAlgebraElementNode AProd = new(new O_Multiplication(A, BCSum));
 			return AProd;
 		}
 	}
@@ -26,8 +26,8 @@ public class P_Distributive_LAElement : PropertyBase
 			LinearAlgebraElementNode B = new("prop_distributive_forward_b", "b");
 			LinearAlgebraElementNode C = new("prop_distributive_forward_c", "c");
 			
-			LinearAlgebraElementNode ABMult = new(new O_Multiplication_LAElement(A, B));
-			LinearAlgebraElementNode ACMult = new(new O_Multiplication_LAElement(A, C));
+			LinearAlgebraElementNode ABMult = new(new O_Multiplication(A, B));
+			LinearAlgebraElementNode ACMult = new(new O_Multiplication(A, C));
 			LinearAlgebraElementNode ABACProd = new (new O_Addition(ABMult, ACMult));
 			return ABACProd;
 		}
