@@ -16,7 +16,7 @@ public class ComplexElementNode : ConstrainedBaseElement<ICCEN_Generic>
 	{
 		
 	}
-	public ComplexElementNode(IConstrainedOutputOperator<UnconstrainedBaseElement> op, bool iSE = false)
+	public ComplexElementNode(IConstrainedOutputOperator<UnconstrainedBaseElement> op, bool iSE = false) : base(op, iSE)
     {
         
     }

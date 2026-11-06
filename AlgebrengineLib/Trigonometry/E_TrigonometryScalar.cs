@@ -16,7 +16,7 @@ public class TrigonometricScalarElementNode : ConstrainedBaseElement<ICTSEN_Gene
 	{
 		
 	}
-	public TrigonometricScalarElementNode(IConstrainedOutputOperator<TrigonometricScalarElementNode> op, bool iSE = false)
+	public TrigonometricScalarElementNode(IConstrainedOutputOperator<TrigonometricScalarElementNode> op, bool iSE = false) : base(op, iSE)
     {
         
     }

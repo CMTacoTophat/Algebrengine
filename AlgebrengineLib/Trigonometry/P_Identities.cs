@@ -1,3 +1,5 @@
+using AlgebrengineLib.ElementaryAlgebra;
+
 namespace AlgebrengineLib.Trigonometry;
 
 /*
@@ -65,3 +67,59 @@ namespace AlgebrengineLib.Trigonometry;
 
     CURRENT COMPLETION: 0/34 (0%)
 */
+
+public class P_Pythagorean : PropertyBase
+{
+	protected override TreeNode InputBaseTopo
+	{
+		get {
+			TrigonometricAngleElementNode T = new("prop_pythagorean_1_theta", "theta");
+            TrigonometricScalarElementNode SinNode = new(new O_Sin(new(), T));
+            TrigonometricScalarElementNode CosNode = new(new O_Cos(new(), T));
+
+            AlgebraElementNode Sin2Node = new(new O_Power(SinNode.node!, new Number(2)));
+            AlgebraElementNode Cos2Node = new(new O_Power(CosNode.node!, new Number(2)));
+
+            AlgebraElementNode SinCosSum = new(new O_Addition(Sin2Node, Cos2Node));
+            return SinCosSum;
+		}
+	}
+	
+	protected override TreeNode OutputBaseTopo
+	{
+		get {
+			return new AlgebraElementNode(new Number(1));
+		}
+	}
+}
+
+public class P_Pythagorean_TS : PropertyBase
+{
+	protected override TreeNode InputBaseTopo
+	{
+		get {
+			TrigonometricAngleElementNode T = new("prop_pythagorean_2_theta", "theta");
+            //tan^2 + 1 = sec^2
+            TrigonometricScalarElementNode TanNode = new(new O_Tan(new(), T));
+            AlgebraElementNode Tan2Node = new(new O_Power(TanNode.node!, new Number(2)));
+            //TODO: Make system for certain numbers to be verified during CheckIfSimilar (like how this has to be one,
+            //currently it would only check if it is a number)
+            //(possibly with property checking override?)
+            AlgebraElementNode UnityNode = new(new Number(1));
+
+            AlgebraElementNode TanUnitySum = new(new O_Addition(Tan2Node, UnityNode));
+            return TanUnitySum;
+		}
+	}
+	
+	protected override TreeNode OutputBaseTopo
+	{
+		get {
+			TrigonometricAngleElementNode T = new("prop_pythagorean_2_theta", "theta");
+            TrigonometricScalarElementNode SecNode = new(new O_Sec(new(), T));
+            AlgebraElementNode Sec2Node = new(new O_Power(SecNode.node!, new Number(2)));
+
+            return Sec2Node;
+		}
+	}
+}

@@ -1,8 +1,11 @@
 namespace AlgebrengineLib.LinearAlgebra;
+using AlgebrengineLib.ElementaryAlgebra;
 
 //This file is for the various distributive properties of each kind of linear algebra type/product
 //TODO: Implement inner and outer tensor propducts
-public class P_Distributive_LAElement : PropertyBase
+
+//this is an EXAMPLE class to show how the different interfaces and elements can work together
+public class P_Distributive_LA_EXAMPLE : PropertyBase
 {
 	protected override TreeNode InputBaseTopo
 	{
@@ -12,8 +15,8 @@ public class P_Distributive_LAElement : PropertyBase
 			LinearAlgebraElementNode B = new("prop_distributive_forward_b", "b");
 			LinearAlgebraElementNode C = new("prop_distributive_forward_c", "c");
 			
-			LinearAlgebraElementNode BCSum = new(new O_Addition(B, C));
-			LinearAlgebraElementNode AProd = new(new O_Multiplication(A, BCSum));
+			LinearAlgebraElementNode BCSum = new(new ElementaryAlgebra.O_Addition(B.node!, C.node!));
+			LinearAlgebraElementNode AProd = new(new ElementaryAlgebra.O_Multiplication(A.node!, BCSum.node!));
 			return AProd;
 		}
 	}
@@ -26,9 +29,9 @@ public class P_Distributive_LAElement : PropertyBase
 			LinearAlgebraElementNode B = new("prop_distributive_forward_b", "b");
 			LinearAlgebraElementNode C = new("prop_distributive_forward_c", "c");
 			
-			LinearAlgebraElementNode ABMult = new(new O_Multiplication(A, B));
-			LinearAlgebraElementNode ACMult = new(new O_Multiplication(A, C));
-			LinearAlgebraElementNode ABACProd = new (new O_Addition(ABMult, ACMult));
+			LinearAlgebraElementNode ABMult = new(new ElementaryAlgebra.O_Multiplication(A.node!, B.node!));
+			LinearAlgebraElementNode ACMult = new(new ElementaryAlgebra.O_Multiplication(A.node!, C.node!));
+			LinearAlgebraElementNode ABACProd = new (new ElementaryAlgebra.O_Addition(ABMult.node!, ACMult.node!));
 			return ABACProd;
 		}
 	}

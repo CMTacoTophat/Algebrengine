@@ -15,7 +15,7 @@ public class TrigonometricAngleElementNode : ConstrainedBaseElement<ICTAEN_Gener
 	{
 		
 	}
-	public TrigonometricAngleElementNode(IConstrainedOutputOperator<UnconstrainedBaseElement> op, bool iSE = false)
+	public TrigonometricAngleElementNode(IConstrainedOutputOperator<UnconstrainedBaseElement> op, bool iSE = false) : base(op, iSE)
     {
         
     }

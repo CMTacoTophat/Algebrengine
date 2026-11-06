@@ -8,7 +8,7 @@ public class P_Simplify_PrimaryFunction_Sin_Element : PropertyBase
         {
             TrigonometricAngleElementNode T = new("prop_simplify_pfunction_sin_element_theta", "theta");
 
-            TrigScalar TrigFunc = new(new O_Sin(new(), T));
+            TrigonometricScalarElementNode TrigFunc = new(new O_Sin(new(), T));
             return TrigFunc;
         }
     }
@@ -28,7 +28,7 @@ public class P_Simplify_PrimaryFunction_Cos_Element : PropertyBase
         {
             TrigonometricAngleElementNode T = new("prop_simplify_pfunction_cos_element_theta", "theta");
 
-            TrigScalar TrigFunc = new(new O_Cos(new(), T));
+            TrigonometricScalarElementNode TrigFunc = new(new O_Cos(new(), T));
             return TrigFunc;
         }
     }
@@ -48,7 +48,7 @@ public class P_Simplify_PrimaryFunction_Tan_Element : PropertyBase
         {
             TrigonometricAngleElementNode T = new("prop_simplify_pfunction_tan_element_theta", "theta");
 
-            TrigScalar TrigFunc = new(new O_Tan(new(), T));
+            TrigonometricScalarElementNode TrigFunc = new(new O_Tan(new(), T));
             return TrigFunc;
         }
     }
@@ -72,7 +72,7 @@ public class P_Simplify_PrimaryFunction_Csc_Element : PropertyBase
         {
             TrigonometricAngleElementNode T = new("prop_simplify_pfunction_csc_element_theta", "theta");
 
-            TrigScalar TrigFunc = new(new O_Sin(new(), T));
+            TrigonometricScalarElementNode TrigFunc = new(new O_Sin(new(), T));
             return TrigFunc;
         }
     }
@@ -93,7 +93,7 @@ public class P_Simplify_PrimaryFunction_Sec_Element : PropertyBase
         {
             TrigonometricAngleElementNode T = new("prop_simplify_pfunction_sec_element_theta", "theta");
 
-            TrigScalar TrigFunc = new(new O_Sec(new(), T));
+            TrigonometricScalarElementNode TrigFunc = new(new O_Sec(new(), T));
             return TrigFunc;
         }
     }
@@ -114,7 +114,7 @@ public class P_Simplify_PrimaryFunction_Cot_Element : PropertyBase
         {
             TrigonometricAngleElementNode T = new("prop_simplify_pfunction_cot_element_theta", "theta");
 
-            TrigScalar TrigFunc = new(new O_Cot(new(), T));
+            TrigonometricScalarElementNode TrigFunc = new(new O_Cot(new(), T));
             return TrigFunc;
         }
     }

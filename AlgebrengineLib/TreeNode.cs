@@ -197,6 +197,8 @@ public class TreeNode
 	{
 		if (canConnect) { 
 			Store.AddVariable(varName, varNode, out bool s); 
+			//TODO: Figure out how to add support for multiple of the same quantity
+			//ex. in sin(x)^2 + cos(x)^2 = 1, x has to be the same in multiple arguments
 			if (!s) Console.WriteLine("Error: could not connect variable!");
 		}
 	}

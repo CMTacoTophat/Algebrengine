@@ -15,7 +15,7 @@ public class AlgebraElementNode : ConstrainedBaseElement<ICAE_Generic>
 	{
 		
 	}
-	public AlgebraElementNode(IConstrainedOutputOperator<UnconstrainedBaseElement> op, bool iSE = false)
+	public AlgebraElementNode(IConstrainedOutputOperator<UnconstrainedBaseElement> op, bool iSE = false) : base(op, iSE)
     {
         
     }

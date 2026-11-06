@@ -40,7 +40,10 @@ public class LinearAlgebraElementNode : ConstrainedBaseElement<ICLAE_Generic>//,
 	{
 		
 	}
-	public LinearAlgebraElementNode(IConstrainedOutputOperator<UnconstrainedBaseElement> op, bool iSE = false)
+	//TODO: Strictly-type this argument (might break the example class with p_distributive though)
+	//the main issue is how operators borrowed from ElementaryAlgebra are more generic than LinearAlgebra,
+	//and it doesn't seem like there's a way to make them more so in the LinearAlgebra space
+	public LinearAlgebraElementNode(IConstrainedOutputOperator<UnconstrainedBaseElement> op, bool iSE = false) : base(op, iSE)
     {
         
     }

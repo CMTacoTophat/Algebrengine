@@ -41,3 +41,21 @@ public class O_Multiplication : OperatorBase<AlgebraElementNode, AlgebraElementN
 
     protected override PropertyBase simplificationProperty {get {return new P_Simplify_Multiplication();}}
 }
+
+public class O_Power : OperatorBase<AlgebraElementNode, AlgebraElementNode, AlgebraElementNode>
+{
+    public override bool Commutative {get {return true;}}
+    public override Type[] Associatives {get {return [];}}
+    public override string TextRep {get {return " ^ ";}}
+    public O_Power(IUnconstrainedAlgebraElement sn1, IUnconstrainedAlgebraElement sn2) : base(new AlgebraElementNode(sn1), new AlgebraElementNode(sn2))
+    {
+        
+    }
+
+    public O_Power(AlgebraElementNode sn1, AlgebraElementNode sn2) : base(sn1, sn2)
+	{
+		
+	}
+
+    protected override PropertyBase simplificationProperty {get {return new P_Simplify_Exponentiation();}}
+}

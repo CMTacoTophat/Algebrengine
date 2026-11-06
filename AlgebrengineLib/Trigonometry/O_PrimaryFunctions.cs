@@ -8,7 +8,7 @@ namespace AlgebrengineLib.Trigonometry;
 //what comes after, as its likely to be a scalar of some sort
 
 //TODO: Add hyperbolic functions (at least when the properties for these are finished)
-public class O_Sin : OperatorBase<TrigScalar, TreeNode, TrigonometricAngleElementNode>
+public class O_Sin : OperatorBase<TrigonometricScalarElementNode, TreeNode, TrigonometricAngleElementNode>
 {
 	public O_Sin(TreeNode sn1, TrigAngle sn2) : base(sn1, new(sn2)) {}
     public O_Sin(TreeNode sn1, TrigonometricAngleElementNode sn2) : base(sn1, sn2) {}
@@ -22,7 +22,7 @@ public class O_Sin : OperatorBase<TrigScalar, TreeNode, TrigonometricAngleElemen
 	} 
 }
 
-public class O_Cos : OperatorBase<TrigScalar, TreeNode, TrigonometricAngleElementNode>
+public class O_Cos : OperatorBase<TrigonometricScalarElementNode, TreeNode, TrigonometricAngleElementNode>
 {
 	public O_Cos(TreeNode sn1, TrigAngle sn2) : base(sn1, new(sn2)) {}
     public O_Cos(TreeNode sn1, TrigonometricAngleElementNode sn2) : base(sn1, sn2) {}
@@ -36,7 +36,7 @@ public class O_Cos : OperatorBase<TrigScalar, TreeNode, TrigonometricAngleElemen
 	} 
 }
 
-public class O_Tan : OperatorBase<TrigScalar, TreeNode, TrigonometricAngleElementNode>
+public class O_Tan : OperatorBase<TrigonometricScalarElementNode, TreeNode, TrigonometricAngleElementNode>
 {
 	public O_Tan(TreeNode sn1, TrigAngle sn2) : base(sn1, new(sn2)) {}
     public O_Tan(TreeNode sn1, TrigonometricAngleElementNode sn2) : base(sn1, sn2) {}
@@ -57,7 +57,7 @@ public class O_Tan : OperatorBase<TrigScalar, TreeNode, TrigonometricAngleElemen
 //###################################################################################################
 
 
-public class O_Csc : OperatorBase<TrigScalar, TreeNode, TrigonometricAngleElementNode>
+public class O_Csc : OperatorBase<TrigonometricScalarElementNode, TreeNode, TrigonometricAngleElementNode>
 {
 	public O_Csc(TreeNode sn1, TrigAngle sn2) : base(sn1, new(sn2)) {}
     public O_Csc(TreeNode sn1, TrigonometricAngleElementNode sn2) : base(sn1, sn2) {}
@@ -71,7 +71,7 @@ public class O_Csc : OperatorBase<TrigScalar, TreeNode, TrigonometricAngleElemen
 	} 
 }
 
-public class O_Sec : OperatorBase<TrigScalar, TreeNode, TrigonometricAngleElementNode>
+public class O_Sec : OperatorBase<TrigonometricScalarElementNode, TreeNode, TrigonometricAngleElementNode>
 {
 	public O_Sec(TreeNode sn1, TrigAngle sn2) : base(sn1, new(sn2)) {}
     public O_Sec(TreeNode sn1, TrigonometricAngleElementNode sn2) : base(sn1, sn2) {}
@@ -85,7 +85,7 @@ public class O_Sec : OperatorBase<TrigScalar, TreeNode, TrigonometricAngleElemen
 	} 
 }
 
-public class O_Cot : OperatorBase<TrigScalar, TreeNode, TrigonometricAngleElementNode>
+public class O_Cot : OperatorBase<TrigonometricScalarElementNode, TreeNode, TrigonometricAngleElementNode>
 {
 	public O_Cot(TreeNode sn1, TrigAngle sn2) : base(sn1, new(sn2)) {}
     public O_Cot(TreeNode sn1, TrigonometricAngleElementNode sn2) : base(sn1, sn2) {}
