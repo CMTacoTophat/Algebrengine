@@ -43,6 +43,9 @@ public class LinearAlgebraElementNode : ConstrainedBaseElement<ICLAE_Generic>//,
 	//TODO: Strictly-type this argument (might break the example class with p_distributive though)
 	//the main issue is how operators borrowed from ElementaryAlgebra are more generic than LinearAlgebra,
 	//and it doesn't seem like there's a way to make them more so in the LinearAlgebra space
+
+	//Idea: operators in ElementaryAlgebra that can be customized for each implementing algebra 
+	//(like "O_Addition<LinearAlgebraElementNode>" or "O_Addition<ICLAE_Generic>")
 	public LinearAlgebraElementNode(IConstrainedOutputOperator<UnconstrainedBaseElement> op, bool iSE = false) : base(op, iSE)
     {
         
@@ -60,17 +63,27 @@ public interface IUnconstrainedLinearAlgebraElement : IElementImplementer, IUnco
 }
 
 public interface IConstrainedLinearAlgebraElement<in InElement, out OutElement> : IUnconstrainedLinearAlgebraElement, IConstrainedAlgebraElement<InElement, OutElement> where InElement : IUnconstrainedLinearAlgebraElement, IUnconstrainedAlgebraElement where OutElement : IUnconstrainedLinearAlgebraElement, IUnconstrainedAlgebraElement
-{/* 
-	public OutElement Add(InElement otherNode);
-	public OutElement Add(Scalar otherNode);
-	public OutElement Multiply(InElement otherNode);
-	public OutElement Multiply(Scalar otherNode);
-	public void Negate();
-	public void Invert();  */
+{
+	
+}
+
+public interface ILinearAlgebraElementOperators<TSelf>
+    : IUnconstrainedLinearAlgebraElement, IAlgebraElementOperators<TSelf>
+    where TSelf : ILinearAlgebraElementOperators<TSelf>
+{
+    static abstract bool operator ==(TSelf left, TSelf right);
+    static abstract bool operator !=(TSelf left, TSelf right);
+    static abstract bool operator ==(TSelf left, Scalar right);
+    static abstract bool operator !=(TSelf left, Scalar right);
+}
+
+public interface ILinearAlgebraImplementer<TSelf> : IConstrainedLinearAlgebraElement<TSelf, TSelf>, ILinearAlgebraElementOperators<TSelf> where TSelf : ILinearAlgebraImplementer<TSelf>
+{
+	
 }
 
 
-public class Scalar : TreeNode, IConstrainedLinearAlgebraElement<Scalar, Scalar>
+public class Scalar : TreeNode, ILinearAlgebraImplementer<Scalar>
 {
 	public double ScalarVal {get; private set;} = double.NaN;
 	public Scalar(double val) : base(val) {
@@ -119,4 +132,30 @@ public class Scalar : TreeNode, IConstrainedLinearAlgebraElement<Scalar, Scalar>
 	{
 		this.ScalarVal = 1/this.ScalarVal;
 	}
+
+	public static bool operator ==(Scalar left, Scalar right)
+	{
+		return left.ScalarVal == right.ScalarVal;
+	}
+	public static bool operator ==(Scalar left, Number right)
+	{
+		return left.ScalarVal == right.NumberVal;
+	}
+	public static bool operator !=(Scalar left, Scalar right)
+	{
+		return left.ScalarVal != right.ScalarVal;
+	}
+	public static bool operator !=(Scalar left, Number right)
+	{
+		return left.ScalarVal != right.NumberVal;
+	}
+
+	public override bool Equals(object? obj)
+    {
+        return base.Equals(obj);
+    }
+    public override int GetHashCode()
+    {
+        return base.GetHashCode();
+    }
 }

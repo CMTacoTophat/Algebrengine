@@ -37,8 +37,23 @@ public interface IConstrainedComplexElement<in InElement, out OutElement> : IUnc
 	
 }
 
+public interface IComplexElementOperators<TSelf>
+    : IUnconstrainedComplexElement, IAlgebraElementOperators<TSelf>
+    where TSelf : IComplexElementOperators<TSelf>
+{
+    static abstract bool operator ==(TSelf left, TSelf right);
+    static abstract bool operator !=(TSelf left, TSelf right);
+    static abstract bool operator ==(TSelf left, Real right);
+    static abstract bool operator !=(TSelf left, Real right);
+}
 
-public class Real : TreeNode, IConstrainedComplexElement<Real, Real>
+public interface IComplexImplementer<TSelf> : IConstrainedComplexElement<TSelf, TSelf>, IComplexElementOperators<TSelf> where TSelf : IComplexImplementer<TSelf>
+{
+	
+}
+
+
+public class Real : TreeNode, IComplexImplementer<Real>
 {
 	public double RealVal {get; private set;} = float.NaN;
 	public Real(double val) : base(val) {
@@ -88,4 +103,31 @@ public class Real : TreeNode, IConstrainedComplexElement<Real, Real>
 	{
 		this.RealVal = 1/this.RealVal;
 	}
+
+	
+	public static bool operator ==(Real left, Real right)
+	{
+		return left.RealVal == right.RealVal;
+	}
+	public static bool operator ==(Real left, Number right)
+	{
+		return left.RealVal == right.NumberVal;
+	}
+	public static bool operator !=(Real left, Real right)
+	{
+		return left.RealVal != right.RealVal;
+	}
+	public static bool operator !=(Real left, Number right)
+	{
+		return left.RealVal != right.NumberVal;
+	}
+
+	public override bool Equals(object? obj)
+    {
+        return base.Equals(obj);
+    }
+    public override int GetHashCode()
+    {
+        return base.GetHashCode();
+    }
 }

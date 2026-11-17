@@ -22,7 +22,7 @@ public abstract class PropertyBase
 		
 		for (int i = 0; i < t.alternativeArrangements.Length; i++) {
 			//don't need to make a copy of IBT - the variables name are used to modify the STORE
-			if (TreeNode.CheckIfSimilar(InputBaseTopo, t.alternativeArrangements[i], true, true)) {
+			if (TreeNode.CheckIfSimilar(InputBaseTopo, t.alternativeArrangements[i], true, true, true)) {
 				success = true;
 				break;
 			}

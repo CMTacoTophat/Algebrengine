@@ -43,6 +43,22 @@ public interface IConstrainedAlgebraElement<in InElement, out OutElement> : IUnc
 	public void Invert();
 }
 
+//Interface to allow for equality checking with algebra elements, and to assist when checking
+//for certain properties (like x/x = 1)
+public interface IAlgebraElementOperators<TSelf>
+    : IUnconstrainedAlgebraElement
+    where TSelf : IAlgebraElementOperators<TSelf>
+{
+    static abstract bool operator ==(TSelf left, TSelf right);
+    static abstract bool operator !=(TSelf left, TSelf right);
+    static abstract bool operator ==(TSelf left, Number right);
+    static abstract bool operator !=(TSelf left, Number right);
+}
+
+public interface IAlgebraImplementer<TSelf> : IConstrainedAlgebraElement<TSelf, TSelf>, IAlgebraElementOperators<TSelf> where TSelf : IAlgebraImplementer<TSelf>
+{
+	
+}
 
 public class Number : TreeNode, IConstrainedAlgebraElement<Number, Number>
 {
@@ -79,4 +95,23 @@ public class Number : TreeNode, IConstrainedAlgebraElement<Number, Number>
 	{
 		this.NumberVal = 1/this.NumberVal;
 	}
+
+	public static bool operator ==(Number n1, Number n2)
+	{
+		return n1.NumberVal == n2.NumberVal;
+	}
+
+	public static bool operator !=(Number n1, Number n2)
+	{
+		return n1.NumberVal != n2.NumberVal;
+	}
+
+    public override bool Equals(object? obj)
+    {
+        return base.Equals(obj);
+    }
+    public override int GetHashCode()
+    {
+        return base.GetHashCode();
+    }
 }

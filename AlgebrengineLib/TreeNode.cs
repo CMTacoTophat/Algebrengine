@@ -1,6 +1,7 @@
 namespace AlgebrengineLib;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 
 public class TreeNode
 {
@@ -13,6 +14,8 @@ public class TreeNode
 	public IConstrainedOutputOperator<TreeNode> ConstrainedOutputOperator = new INVALID_OPERATOR("TreeNode C. O. Operator not set", true);
 
 	public bool isEndValue; //if it is a leaf
+	//TODO: overload equality operators for nodes where this is important (like scalars) (also actually USE the == operator for checking)
+	public bool checkForEqualValue = true; //for CheckIfSimilar, if it should specifically check this node's value
 	public TreeNode Parent = INVALID_ELEMENT("TreeNode Parent not set", true);
 	public int sNNumberForParent = -1; //ONE OR TWO
 	public bool hasDefiniteValue; //for larger structures with all numbers filled, or for values themselves. NOT for trees with all subnodes filled numbers
@@ -140,7 +143,7 @@ public class TreeNode
 			and n2 being the extension.
 	*/
 	//TODO: Confirm this works
-	public static bool CheckIfSimilar(TreeNode n1, TreeNode n2, bool checkIfExtension = false, bool connectVariables = false)
+	public static bool CheckIfSimilar(TreeNode n1, TreeNode n2, bool checkIfExtension = false, bool connectVariables = false, bool checkEqualValues = false)
 	{ //NOTE: Convention will be than n1 has the variables to be connected!
 		//Console.WriteLine("Checking " + msg);
 		//not necessarily scalar representative, as it would be inconvenient to define, say, the distributive property
@@ -150,9 +153,11 @@ public class TreeNode
 		//If the quantities are being connected, have the n1 variables correspond to the n2 nodes
 		
 		if (n1.isEndValue || n2.isEndValue) {
+			//true if it doesn't need to be checked, or if it does, and they are equal
+			bool equalCheck = !checkEqualValues || n1 == n2; //== overridden for scalar nodes and such
 			
 			//if they are both the end value
-			if (n1.isEndValue && n2.isEndValue) {
+			if (n1.isEndValue && n2.isEndValue && checkEqualValues && equalCheck) {
 				ConnectVariablesHelper(connectVariables, n1.variableName, n2);
 				return true;
 			//if there is a mismatch, but because n2 could be an extension

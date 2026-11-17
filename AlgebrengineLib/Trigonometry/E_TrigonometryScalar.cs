@@ -37,6 +37,23 @@ public interface IConstrainedTrigonometricScalarElement<in InElement, out OutEle
 	
 }
 
+public interface ITrigonometricScalarElementOperators<TSelf>
+    : IUnconstrainedTrigonometricScalarElement, IAlgebraElementOperators<TSelf>
+    where TSelf : ITrigonometricScalarElementOperators<TSelf>
+{
+    static abstract bool operator ==(TSelf left, TSelf right);
+    static abstract bool operator !=(TSelf left, TSelf right);
+    static abstract bool operator ==(TSelf left, Number right);
+    static abstract bool operator !=(TSelf left, Number right);
+}
+
+public interface ITrigonometricScalarImplementer<TSelf> : IConstrainedTrigonometricScalarElement<TSelf, TSelf>, ITrigonometricScalarElementOperators<TSelf> where TSelf : ITrigonometricScalarImplementer<TSelf>
+{
+	
+}
+
+//TODO: Add equality interfaces to trigonometry
+
 // Node for the input to trigonometric functions - can be, but not 
 public class TrigScalar : TreeNode, IConstrainedTrigonometricScalarElement<TrigScalar, TrigScalar>
 {
@@ -87,4 +104,30 @@ public class TrigScalar : TreeNode, IConstrainedTrigonometricScalarElement<TrigS
 	{
 		this.ScalarVal *= -1;
 	}
+
+	public static bool operator ==(TrigScalar left, TrigScalar right)
+	{
+		return left.ScalarVal == right.ScalarVal;
+	}
+	public static bool operator ==(TrigScalar left, Number right)
+	{
+		return left.ScalarVal == right.NumberVal;
+	}
+	public static bool operator !=(TrigScalar left, TrigScalar right)
+	{
+		return left.ScalarVal != right.ScalarVal;
+	}
+	public static bool operator !=(TrigScalar left, Number right)
+	{
+		return left.ScalarVal != right.NumberVal;
+	}
+
+	public override bool Equals(object? obj)
+    {
+        return base.Equals(obj);
+    }
+    public override int GetHashCode()
+    {
+        return base.GetHashCode();
+    }
 }
