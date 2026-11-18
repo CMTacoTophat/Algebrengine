@@ -6,8 +6,8 @@ namespace AlgebrengineLib.Trigonometry;
     TO BE MADE IN THIS FILE (TODO:)
 
     Pythagorean Identities
-    1.      sin^2 + cos^2 = 1
-    2.      tan^2 + 1 = sec^2
+    1.      sin^2 + cos^2 = 1 <
+    2.      tan^2 + 1 = sec^2 <
     3.      1 + cot^2 = csc^2
 
     Co-Function Identities
@@ -68,7 +68,7 @@ namespace AlgebrengineLib.Trigonometry;
     CURRENT COMPLETION: 0/34 (0%)
 */
 
-public class P_Pythagorean : PropertyBase<AlgebraElementNode>
+public class P_Pythagorean_SC : PropertyBase<AlgebraElementNode>
 {
 	protected override AlgebraElementNode InputBaseTopo
 	{

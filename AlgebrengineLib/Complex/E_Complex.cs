@@ -103,6 +103,10 @@ public class Real : TreeNode, IComplexImplementer<Real>
 	{
 		this.RealVal = 1/this.RealVal;
 	}
+	public double GetNumericValue()
+	{
+		return this.RealVal;
+	}
 
 	
 	public static bool operator ==(Real left, Real right)

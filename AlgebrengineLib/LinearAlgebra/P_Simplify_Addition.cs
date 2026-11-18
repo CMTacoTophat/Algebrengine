@@ -37,7 +37,7 @@ namespace AlgebrengineLib.LinearAlgebra;
 public class P_Simplify_Addition_Vector : PropertyBase<Vector>
 {
     
-    public override bool CanBeApplied(TreeNode t)
+    public override bool CanBeApplied(Vector t)
     {
         try
         {

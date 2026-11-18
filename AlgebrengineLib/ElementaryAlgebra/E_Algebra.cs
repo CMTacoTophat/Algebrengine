@@ -41,6 +41,8 @@ public interface IConstrainedAlgebraElement<in InElement, out OutElement> : IUnc
     public OutElement Power(Number otherNode);
 	public void Negate();
 	public void Invert();
+	//NOTE: Not possible for all implementers - in that case, return NaN
+	public double GetNumericValue();
 }
 
 //Interface to allow for equality checking with algebra elements, and to assist when checking
@@ -87,6 +89,7 @@ public class Number : TreeNode, IConstrainedAlgebraElement<Number, Number>
     {
         return new(Math.Pow(this.NumberVal, otherNode.NumberVal));
     }
+
 	public void Negate()
 	{
 		this.NumberVal *= -1;
@@ -95,6 +98,11 @@ public class Number : TreeNode, IConstrainedAlgebraElement<Number, Number>
 	{
 		this.NumberVal = 1/this.NumberVal;
 	}
+	public double GetNumericValue()
+	{
+		return this.NumberVal;
+	}
+
 
 	public static bool operator ==(Number n1, Number n2)
 	{

@@ -124,6 +124,7 @@ public class Scalar : TreeNode, ILinearAlgebraImplementer<Scalar>
 		return new(Math.Pow(this.ScalarVal, otherNode.NumberVal));
 	}
 
+
 	public void Negate()
 	{
 		this.ScalarVal *= -1;
@@ -131,6 +132,10 @@ public class Scalar : TreeNode, ILinearAlgebraImplementer<Scalar>
 	public void Invert()
 	{
 		this.ScalarVal = 1/this.ScalarVal;
+	}
+	public double GetNumericValue()
+	{
+		return this.ScalarVal;
 	}
 
 	public static bool operator ==(Scalar left, Scalar right)

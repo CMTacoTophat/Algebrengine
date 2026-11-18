@@ -104,6 +104,10 @@ public class TrigScalar : TreeNode, IConstrainedTrigonometricScalarElement<TrigS
 	{
 		this.ScalarVal *= -1;
 	}
+	public double GetNumericValue()
+	{
+		return this.ScalarVal;
+	}
 
 	public static bool operator ==(TrigScalar left, TrigScalar right)
 	{

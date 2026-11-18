@@ -40,9 +40,10 @@ public abstract class ConstrainedBaseElement<ImpType> : UnconstrainedBaseElement
 
     public ConstrainedBaseElement(IElementImplementer i)
 	{
-		if (i is TreeNode n)
+		if (i is TreeNode && i is ImpType n)
 		{
-			this.ReplaceWithTree(n);
+			//TODO: Figure out what to REALLY do here
+            node = n;
 		} else
 		{
 			// Figure out
@@ -51,8 +52,8 @@ public abstract class ConstrainedBaseElement<ImpType> : UnconstrainedBaseElement
 	}
     public ConstrainedBaseElement(string vN, string vD) : base(vN, vD)
     {
-        //NOTE: might not be necesary, should check
-        this.ReplaceAsVariable();
+        this.MakeVariable(vN, vD);
+        //this.ReplaceAsVariable();
     }
     public ConstrainedBaseElement(IConstrainedOutputOperator<UnconstrainedBaseElement> op, bool iSE = false)
     {
@@ -60,6 +61,11 @@ public abstract class ConstrainedBaseElement<ImpType> : UnconstrainedBaseElement
         if (op is OperatorBase o)
         {
             Operator = o;
+            if (node is TreeNode t)
+            {
+                t.Operator = o;
+                t.ConstrainedOutputOperator = op;
+            }
         } else
         {
             Operator = new INVALID_OPERATOR("Constrained Base Element operator argument does not derive from OperatorBase", false);

@@ -28,6 +28,15 @@ public abstract class OperatorBase
 	//result in invalid nodes)
 	public virtual void ReplaceGenericSubNodes(TreeNode sn1, TreeNode sn2, bool generateInvalidsIfTypeMismatch = false) {}
 	public virtual void ReplaceGenericSubNodes(TreeNode n, int num, bool generateInvalidsIfTypeMismatch = false) {}
+
+	public virtual TreeNode GetGenericSubNode1()
+	{
+		return TreeNode.INVALID_ELEMENT("Operator Base does not have access to SubNodes");
+	}
+	public virtual TreeNode GetGenericSubNode2()
+	{
+		return TreeNode.INVALID_ELEMENT("Operator Base does not have access to SubNodes");
+	}
 }
 
 /*
@@ -75,8 +84,8 @@ public interface IConstrainedInput<in ST1, in ST2> where ST1 : TreeNode where ST
 
 public abstract class OperatorBase<PT, ST1, ST2> : OperatorBase, IConstrainedOutputOperator<PT>, IConstrainedInput<ST1, ST2> where PT : TreeNode, new() where ST1 : TreeNode where ST2: TreeNode
 {
-	ST1 SubNode1 = (ST1)TreeNode.INVALID_ELEMENT("Operator SubNode1 Not Set", true);
-	ST2 SubNode2 = (ST2)TreeNode.INVALID_ELEMENT("Operator SubNode2 Not Set", true);
+	public ST1 SubNode1 = (ST1)TreeNode.INVALID_ELEMENT("Operator SubNode1 Not Set", true);
+	public ST2 SubNode2 = (ST2)TreeNode.INVALID_ELEMENT("Operator SubNode2 Not Set", true);
 	public OperatorBase(ST1 sn1, ST2 sn2)
 	{
 		Setup(sn1, sn2);
@@ -148,7 +157,7 @@ public abstract class OperatorBase<PT, ST1, ST2> : OperatorBase, IConstrainedOut
 
 	public PT GetUnsimplified(TreeNode original)
 	{
-		PT temp = (PT)original.GenerateCopy();
+		PT temp = (PT)original.GenerateCopy(false);
 		temp.SubNode1 = SubNode1;
 		temp.SubNode2 = SubNode2;
 		temp.Operator = this;
@@ -185,6 +194,15 @@ public abstract class OperatorBase<PT, ST1, ST2> : OperatorBase, IConstrainedOut
 		{
 			ReplaceGenericSubNodes(SubNode1, n, generateInvalidsIfTypeMismatch);
 		}
+    }
+
+    public override TreeNode GetGenericSubNode1()
+    {
+        return SubNode1;
+    }
+    public override TreeNode GetGenericSubNode2()
+    {
+        return SubNode2;
     }
 }
 

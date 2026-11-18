@@ -59,7 +59,8 @@ public class TreeNode
 		id = GlobalElemCount++;
 		alternativeArrangements = GetAlternativeArrangements(true);
 
-		TreeNode copy = op.GetUnsimplified(this);
+		TreeNode copy = op.GetUnsimplified(this); //this is where the subnodes are set. However, it's somewhat dangerous, so
+		//it would be nice to use GetGenericSubNode1() and 2() at some point (methods of OperatorBase)
 
 		this.ReplaceWithTree(copy);
 	}

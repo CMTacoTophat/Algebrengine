@@ -13,7 +13,7 @@ public abstract class PropertyBase<T> where T : TreeNode, new()
 	protected abstract T InputBaseTopo { get; }
 	protected abstract T OutputBaseTopo { get; }
 	public virtual T Apply(T t, out bool success) {return DefaultApply(t, out success);}
-	public virtual bool CanBeApplied(TreeNode t) { return true; }
+	public virtual bool CanBeApplied(T t) { return true; }
 	
 	//In case there isn't anything special the property needs to check/do during the application process
 	protected T DefaultApply(T t, out bool success) {
