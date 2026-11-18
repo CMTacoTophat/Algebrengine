@@ -17,7 +17,7 @@ public class O_Addition : OperatorBase<AlgebraElementNode, AlgebraElementNode, A
     public override Type[] Associatives {get {return [typeof(O_Addition)];}}
     public override string TextRep {get {return " + ";}}
 
-	protected override PropertyBase simplificationProperty {get
+	protected override PropertyBase<AlgebraElementNode> simplificationProperty {get
 		{
 			return new P_Simplify_Addition();
 		}
@@ -39,7 +39,7 @@ public class O_Multiplication : OperatorBase<AlgebraElementNode, AlgebraElementN
 		
 	}
 
-    protected override PropertyBase simplificationProperty {get {return new P_Simplify_Multiplication();}}
+    protected override PropertyBase<AlgebraElementNode> simplificationProperty {get {return new P_Simplify_Multiplication();}}
 }
 
 public class O_Power : OperatorBase<AlgebraElementNode, AlgebraElementNode, AlgebraElementNode>
@@ -57,5 +57,5 @@ public class O_Power : OperatorBase<AlgebraElementNode, AlgebraElementNode, Alge
 		
 	}
 
-    protected override PropertyBase simplificationProperty {get {return new P_Simplify_Exponentiation();}}
+    protected override PropertyBase<AlgebraElementNode> simplificationProperty {get {return new P_Simplify_Exponentiation();}}
 }

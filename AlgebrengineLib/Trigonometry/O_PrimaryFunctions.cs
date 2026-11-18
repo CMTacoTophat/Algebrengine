@@ -15,7 +15,7 @@ public class O_Sin : OperatorBase<TrigonometricScalarElementNode, TreeNode, Trig
     public override bool Commutative {get {return false;}}
     public override Type[] Associatives {get {return [];}}
     public override string TextRep {get {return " sin";}}
-    protected override PropertyBase simplificationProperty {get
+    protected override PropertyBase<TrigonometricScalarElementNode> simplificationProperty {get
 		{
 			return new P_Simplify_PrimaryFunction_Sin_Element();
 		}
@@ -29,7 +29,7 @@ public class O_Cos : OperatorBase<TrigonometricScalarElementNode, TreeNode, Trig
     public override bool Commutative {get {return false;}}
     public override Type[] Associatives {get {return [];}}
     public override string TextRep {get {return " cos";}}
-    protected override PropertyBase simplificationProperty {get
+    protected override PropertyBase<TrigonometricScalarElementNode> simplificationProperty {get
 		{
 			return new P_Simplify_PrimaryFunction_Cos_Element();
 		}
@@ -43,7 +43,7 @@ public class O_Tan : OperatorBase<TrigonometricScalarElementNode, TreeNode, Trig
     public override bool Commutative {get {return false;}}
     public override Type[] Associatives {get {return [];}}
     public override string TextRep {get {return " cos";}}
-    protected override PropertyBase simplificationProperty {get
+    protected override PropertyBase<TrigonometricScalarElementNode> simplificationProperty {get
 		{
 			return new P_Simplify_PrimaryFunction_Tan_Element();
 		}
@@ -63,8 +63,8 @@ public class O_Csc : OperatorBase<TrigonometricScalarElementNode, TreeNode, Trig
     public O_Csc(TreeNode sn1, TrigonometricAngleElementNode sn2) : base(sn1, sn2) {}
     public override bool Commutative {get {return false;}}
     public override Type[] Associatives {get {return [];}}
-    public override string TextRep {get {return " sin";}}
-    protected override PropertyBase simplificationProperty {get
+    public override string TextRep {get {return " csc";}}
+    protected override PropertyBase<TrigonometricScalarElementNode> simplificationProperty {get
 		{
 			return new P_Simplify_PrimaryFunction_Csc_Element();
 		}
@@ -77,8 +77,8 @@ public class O_Sec : OperatorBase<TrigonometricScalarElementNode, TreeNode, Trig
     public O_Sec(TreeNode sn1, TrigonometricAngleElementNode sn2) : base(sn1, sn2) {}
     public override bool Commutative {get {return false;}}
     public override Type[] Associatives {get {return [];}}
-    public override string TextRep {get {return " cos";}}
-    protected override PropertyBase simplificationProperty {get
+    public override string TextRep {get {return " sec";}}
+    protected override PropertyBase<TrigonometricScalarElementNode> simplificationProperty {get
 		{
 			return new P_Simplify_PrimaryFunction_Sec_Element();
 		}
@@ -91,8 +91,8 @@ public class O_Cot : OperatorBase<TrigonometricScalarElementNode, TreeNode, Trig
     public O_Cot(TreeNode sn1, TrigonometricAngleElementNode sn2) : base(sn1, sn2) {}
     public override bool Commutative {get {return false;}}
     public override Type[] Associatives {get {return [];}}
-    public override string TextRep {get {return " cos";}}
-    protected override PropertyBase simplificationProperty {get
+    public override string TextRep {get {return " cot";}}
+    protected override PropertyBase<TrigonometricScalarElementNode> simplificationProperty {get
 		{
 			return new P_Simplify_PrimaryFunction_Cot_Element();
 		}

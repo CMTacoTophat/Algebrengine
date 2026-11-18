@@ -1,6 +1,8 @@
 namespace AlgebrengineLib.LinearAlgebra;
 
-public class O_Multiplication : OperatorBase<LinearAlgebraElementNode, LinearAlgebraElementNode, LinearAlgebraElementNode>
+//Shoul be covered by Algebrengine.ElementaryAlgebra
+
+/*public class O_Multiplication : OperatorBase<LinearAlgebraElementNode, LinearAlgebraElementNode, LinearAlgebraElementNode>
 {
     public override bool Commutative {get {return true;}}
     public override Type[] Associatives {get {return [typeof(O_Multiplication)];}}
@@ -16,5 +18,5 @@ public class O_Multiplication : OperatorBase<LinearAlgebraElementNode, LinearAlg
 	}
 
     protected override PropertyBase simplificationProperty {get {return new P_Simplify_Multiplication();}}
-}
+}*/
 

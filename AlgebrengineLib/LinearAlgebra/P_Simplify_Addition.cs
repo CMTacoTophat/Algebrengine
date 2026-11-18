@@ -1,10 +1,11 @@
 using System.Runtime.CompilerServices;
+using AlgebrengineLib.ElementaryAlgebra;
 
 namespace AlgebrengineLib.LinearAlgebra;
 
 //this file is for the various simplification properties for linear algebra addition
 
-public class P_Simplify_Addition : PropertyBase
+/*public class P_Simplify_Addition : PropertyBase
 {
     protected override TreeNode InputBaseTopo {get
         {
@@ -28,12 +29,12 @@ public class P_Simplify_Addition : PropertyBase
 			return C;
         }
     }
-}
+}*/
 
 
 // VECTOR
 
-public class P_Simplify_Addition_Vector : PropertyBase
+public class P_Simplify_Addition_Vector : PropertyBase<Vector>
 {
     
     public override bool CanBeApplied(TreeNode t)
@@ -46,7 +47,7 @@ public class P_Simplify_Addition_Vector : PropertyBase
             return false;
         }
     }
-    protected override TreeNode InputBaseTopo
+    protected override Vector InputBaseTopo
     {
         get
         {
@@ -57,7 +58,7 @@ public class P_Simplify_Addition_Vector : PropertyBase
             return ABSum;
         }
     }
-    protected override TreeNode OutputBaseTopo
+    protected override Vector OutputBaseTopo
     {
         get
         {

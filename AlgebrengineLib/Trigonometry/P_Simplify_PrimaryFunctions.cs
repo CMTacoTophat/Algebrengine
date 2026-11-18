@@ -2,9 +2,9 @@ namespace AlgebrengineLib.Trigonometry;
 
 
 //TODO: Replace "theta" with actual theta character
-public class P_Simplify_PrimaryFunction_Sin_Element : PropertyBase
+public class P_Simplify_PrimaryFunction_Sin_Element : PropertyBase<TrigonometricScalarElementNode>
 {
-    protected override TreeNode InputBaseTopo {get
+    protected override TrigonometricScalarElementNode InputBaseTopo {get
         {
             TrigonometricAngleElementNode T = new("prop_simplify_pfunction_sin_element_theta", "theta");
 
@@ -13,7 +13,7 @@ public class P_Simplify_PrimaryFunction_Sin_Element : PropertyBase
         }
     }
 
-    protected override TreeNode OutputBaseTopo {get
+    protected override TrigonometricScalarElementNode OutputBaseTopo {get
         {
 			TrigonometricAngleElementNode T = new("prop_simplify_pfunction_sin_element_theta", "theta");
             TrigonometricScalarElementNode R = new(T.node!.Sin());
@@ -22,9 +22,9 @@ public class P_Simplify_PrimaryFunction_Sin_Element : PropertyBase
     }
 }
 
-public class P_Simplify_PrimaryFunction_Cos_Element : PropertyBase
+public class P_Simplify_PrimaryFunction_Cos_Element : PropertyBase<TrigonometricScalarElementNode>
 {
-    protected override TreeNode InputBaseTopo {get
+    protected override TrigonometricScalarElementNode InputBaseTopo {get
         {
             TrigonometricAngleElementNode T = new("prop_simplify_pfunction_cos_element_theta", "theta");
 
@@ -33,7 +33,7 @@ public class P_Simplify_PrimaryFunction_Cos_Element : PropertyBase
         }
     }
 
-    protected override TreeNode OutputBaseTopo {get
+    protected override TrigonometricScalarElementNode OutputBaseTopo {get
         {
 			TrigonometricAngleElementNode T = new("prop_simplify_pfunction_cos_element_theta", "theta");
             TrigonometricScalarElementNode R = new(T.node!.Cos());
@@ -42,9 +42,9 @@ public class P_Simplify_PrimaryFunction_Cos_Element : PropertyBase
     }
 }
 
-public class P_Simplify_PrimaryFunction_Tan_Element : PropertyBase
+public class P_Simplify_PrimaryFunction_Tan_Element : PropertyBase<TrigonometricScalarElementNode>
 {
-    protected override TreeNode InputBaseTopo {get
+    protected override TrigonometricScalarElementNode InputBaseTopo {get
         {
             TrigonometricAngleElementNode T = new("prop_simplify_pfunction_tan_element_theta", "theta");
 
@@ -53,7 +53,7 @@ public class P_Simplify_PrimaryFunction_Tan_Element : PropertyBase
         }
     }
 
-    protected override TreeNode OutputBaseTopo {get
+    protected override TrigonometricScalarElementNode OutputBaseTopo {get
         {
 			TrigonometricAngleElementNode T = new("prop_simplify_pfunction_tan_element_theta", "theta");
             TrigonometricScalarElementNode R = new(T.node!.Tan());
@@ -66,9 +66,9 @@ public class P_Simplify_PrimaryFunction_Tan_Element : PropertyBase
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-public class P_Simplify_PrimaryFunction_Csc_Element : PropertyBase
+public class P_Simplify_PrimaryFunction_Csc_Element : PropertyBase<TrigonometricScalarElementNode>
 {
-    protected override TreeNode InputBaseTopo {get
+    protected override TrigonometricScalarElementNode InputBaseTopo {get
         {
             TrigonometricAngleElementNode T = new("prop_simplify_pfunction_csc_element_theta", "theta");
 
@@ -77,7 +77,7 @@ public class P_Simplify_PrimaryFunction_Csc_Element : PropertyBase
         }
     }
 
-    protected override TreeNode OutputBaseTopo {get
+    protected override TrigonometricScalarElementNode OutputBaseTopo {get
         {
 			TrigonometricAngleElementNode T = new("prop_simplify_pfunction_csc_element_theta", "theta");
             TrigonometricScalarElementNode R = new(T.node!.Sin());
@@ -87,9 +87,9 @@ public class P_Simplify_PrimaryFunction_Csc_Element : PropertyBase
     }
 }
 
-public class P_Simplify_PrimaryFunction_Sec_Element : PropertyBase
+public class P_Simplify_PrimaryFunction_Sec_Element : PropertyBase<TrigonometricScalarElementNode>
 {
-    protected override TreeNode InputBaseTopo {get
+    protected override TrigonometricScalarElementNode InputBaseTopo {get
         {
             TrigonometricAngleElementNode T = new("prop_simplify_pfunction_sec_element_theta", "theta");
 
@@ -98,7 +98,7 @@ public class P_Simplify_PrimaryFunction_Sec_Element : PropertyBase
         }
     }
 
-    protected override TreeNode OutputBaseTopo {get
+    protected override TrigonometricScalarElementNode OutputBaseTopo {get
         {
 			TrigonometricAngleElementNode T = new("prop_simplify_pfunction_sec_element_theta", "theta");
             TrigonometricScalarElementNode R = new(T.node!.Cos());
@@ -108,9 +108,9 @@ public class P_Simplify_PrimaryFunction_Sec_Element : PropertyBase
     }
 }
 
-public class P_Simplify_PrimaryFunction_Cot_Element : PropertyBase
+public class P_Simplify_PrimaryFunction_Cot_Element : PropertyBase<TrigonometricScalarElementNode>
 {
-    protected override TreeNode InputBaseTopo {get
+    protected override TrigonometricScalarElementNode InputBaseTopo {get
         {
             TrigonometricAngleElementNode T = new("prop_simplify_pfunction_cot_element_theta", "theta");
 
@@ -119,7 +119,7 @@ public class P_Simplify_PrimaryFunction_Cot_Element : PropertyBase
         }
     }
 
-    protected override TreeNode OutputBaseTopo {get
+    protected override TrigonometricScalarElementNode OutputBaseTopo {get
         {
 			TrigonometricAngleElementNode T = new("prop_simplify_pfunction_cot_element_theta", "theta");
             TrigonometricScalarElementNode R = new(T.node!.Tan());

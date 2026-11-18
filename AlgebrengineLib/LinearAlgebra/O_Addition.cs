@@ -1,6 +1,7 @@
 namespace AlgebrengineLib.LinearAlgebra;
 
-public class O_Addition : OperatorBase<LinearAlgebraElementNode, LinearAlgebraElementNode, LinearAlgebraElementNode>
+//should be rendered obsolete with using the addition methods from Algebrengine.ElementaryAlgebra
+/*public class O_Addition : OperatorBase<LinearAlgebraElementNode, LinearAlgebraElementNode, LinearAlgebraElementNode>
 {
 	// THIS SHOULD BE THE MODEL ELEMENT OPERATOR:
 	// 1. A constructor for any generic element deriver, making new element nodes from them
@@ -29,7 +30,7 @@ public class O_Addition : OperatorBase<LinearAlgebraElementNode, LinearAlgebraEl
 			return new P_Simplify_Addition();
 		}
 	} 
-}
+}*/
 
 public class O_Addition_Vector : OperatorBase<Vector, Vector, Vector>
 {
@@ -38,7 +39,7 @@ public class O_Addition_Vector : OperatorBase<Vector, Vector, Vector>
     public override Type[] Associatives {get {return [typeof(O_Addition_Vector)];}}
     public override string TextRep {get {return " + ";}}
 
-	protected override PropertyBase simplificationProperty {get
+	protected override PropertyBase<Vector> simplificationProperty {get
 		{
 			return new P_Simplify_Addition_Vector();
 		}

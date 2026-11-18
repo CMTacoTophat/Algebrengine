@@ -1,8 +1,8 @@
 namespace AlgebrengineLib.ElementaryAlgebra;
 
-public class P_Simplify_Addition : PropertyBase
+public class P_Simplify_Addition : PropertyBase<AlgebraElementNode>
 {
-    protected override TreeNode InputBaseTopo {get
+    protected override AlgebraElementNode InputBaseTopo {get
         {
             //A + B = C
             AlgebraElementNode A = new("prop_simplify_addition_number_a", "a");
@@ -13,7 +13,7 @@ public class P_Simplify_Addition : PropertyBase
         }
     }
 
-    protected override TreeNode OutputBaseTopo {get
+    protected override AlgebraElementNode OutputBaseTopo {get
         {
             //A + B = C
 			AlgebraElementNode A = new("prop_simplify_addition_number_a", "a");
@@ -26,9 +26,9 @@ public class P_Simplify_Addition : PropertyBase
     }
 }
 
-public class P_Simplify_Multiplication : PropertyBase
+public class P_Simplify_Multiplication : PropertyBase<AlgebraElementNode>
 {
-    protected override TreeNode InputBaseTopo {get
+    protected override AlgebraElementNode InputBaseTopo {get
         {
             //A * B = C
             AlgebraElementNode A = new("prop_simplify_multiplication_number_a", "a");
@@ -39,7 +39,7 @@ public class P_Simplify_Multiplication : PropertyBase
         }
     }
 
-    protected override TreeNode OutputBaseTopo {get
+    protected override AlgebraElementNode OutputBaseTopo {get
         {
             //A * B = C
 			AlgebraElementNode A = new("prop_simplify_multiplication_number_a", "a");
@@ -51,9 +51,9 @@ public class P_Simplify_Multiplication : PropertyBase
     }
 }
 
-public class P_Simplify_Exponentiation : PropertyBase
+public class P_Simplify_Exponentiation : PropertyBase<AlgebraElementNode>
 {
-    protected override TreeNode InputBaseTopo {get
+    protected override AlgebraElementNode InputBaseTopo {get
         {
             //A ^ B = C
             AlgebraElementNode A = new("prop_simplify_exponentiation_number_a", "a");
@@ -64,7 +64,7 @@ public class P_Simplify_Exponentiation : PropertyBase
         }
     }
 
-    protected override TreeNode OutputBaseTopo {get
+    protected override AlgebraElementNode OutputBaseTopo {get
         {
             //A ^ B = C
 			AlgebraElementNode A = new("prop_simplify_exponentiation_number_a", "a");

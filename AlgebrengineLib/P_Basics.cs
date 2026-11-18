@@ -4,17 +4,21 @@ namespace AlgebrengineLib;
 
 //this one is primarily used for special objects where they shouldn't have any simplification properties related to them
 
-public class P_Reflexive : PropertyBase
+public class P_Reflexive<T> : PropertyBase<T> where T : TreeNode, new()
 {
-    protected override TreeNode InputBaseTopo { get
+    protected override T InputBaseTopo { get
         {
-            return new TreeNode("prop_reflexive", "A"); //might need a better display text (currently "A = A")
+            T node = new T();
+            node.MakeVariable("prop_reflexive", "A");
+            return node;
         }
     }
 
-    protected override TreeNode OutputBaseTopo {get
+    protected override T OutputBaseTopo {get
         {
-            return new TreeNode("prop_reflexive", "A");
+            T node = new T();
+            node.MakeVariable("prop_reflexive", "A");
+            return node;
         }
     }
 }

@@ -7,7 +7,7 @@ public class O_Multiplication_Quaternion : OperatorBase<Quaternion, Quaternion, 
     public override Type[] Associatives {get {return [typeof(O_Multiplication_Quaternion)];}}
     public override string TextRep {get {return " * ";}}
 
-	protected override PropertyBase simplificationProperty {get
+	protected override PropertyBase<Quaternion> simplificationProperty {get
 		{
 			return new P_Simplify_Multiplication_Quaternion();
 		}

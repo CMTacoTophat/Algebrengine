@@ -155,7 +155,7 @@ public class TreeNode
 		if (n1.isEndValue || n2.isEndValue) {
 			//true if it doesn't need to be checked, or if it does, and they are equal
 			bool equalCheck = !checkEqualValues || n1 == n2; //== overridden for scalar nodes and such
-			
+
 			//if they are both the end value
 			if (n1.isEndValue && n2.isEndValue && checkEqualValues && equalCheck) {
 				ConnectVariablesHelper(connectVariables, n1.variableName, n2);
@@ -404,3 +404,18 @@ public class TreeNode
 //===========================================================================================
 //===========================================================================================
 //===========================================================================================
+
+//TODO: Flesh this out
+public class Equation : TreeNode
+{
+	public Equation() : base()
+	{
+		hasDefiniteValue = false;
+		isEndValue = false;
+	}
+	public Equation(IConstrainedOutputOperator<Equation> o) : base(o, false)
+	{
+		hasDefiniteValue = false;
+		isEndValue = false;
+	}
+}

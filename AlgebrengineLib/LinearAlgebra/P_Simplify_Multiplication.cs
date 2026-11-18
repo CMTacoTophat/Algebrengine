@@ -1,10 +1,9 @@
 namespace AlgebrengineLib.LinearAlgebra;
 
-//this file is for the vairous simplification properties for linear algebra Multiplication,
-//including inner and outer products
-
 //TODO: implement inner and outer products
-public class P_Simplify_Multiplication : PropertyBase
+
+//This should be covered instead by the multiplication class from Algebrengine.ElementaryAlgebra
+/*public class P_Simplify_Multiplication : PropertyBase
 {
     protected override TreeNode InputBaseTopo {get
         {
@@ -27,4 +26,4 @@ public class P_Simplify_Multiplication : PropertyBase
 			return C;
         }
     }
-}
+}*/

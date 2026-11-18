@@ -1,8 +1,8 @@
 namespace AlgebrengineLib.Complex;
 
-public class P_Simplify_Multiplication_Quaternion : PropertyBase
+public class P_Simplify_Multiplication_Quaternion : PropertyBase<Quaternion>
 {
-    protected override TreeNode InputBaseTopo
+    protected override Quaternion InputBaseTopo
     {
         get
         {
@@ -14,7 +14,7 @@ public class P_Simplify_Multiplication_Quaternion : PropertyBase
             return ABProd;
         }
     }
-    protected override TreeNode OutputBaseTopo
+    protected override Quaternion OutputBaseTopo
     {
         get
         {

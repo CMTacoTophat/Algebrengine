@@ -68,9 +68,9 @@ namespace AlgebrengineLib.Trigonometry;
     CURRENT COMPLETION: 0/34 (0%)
 */
 
-public class P_Pythagorean : PropertyBase
+public class P_Pythagorean : PropertyBase<AlgebraElementNode>
 {
-	protected override TreeNode InputBaseTopo
+	protected override AlgebraElementNode InputBaseTopo
 	{
 		get {
 			TrigonometricAngleElementNode T = new("prop_pythagorean_1_theta", "theta");
@@ -85,7 +85,7 @@ public class P_Pythagorean : PropertyBase
 		}
 	}
 	
-	protected override TreeNode OutputBaseTopo
+	protected override AlgebraElementNode OutputBaseTopo
 	{
 		get {
 			return new AlgebraElementNode(new Number(1));
@@ -93,9 +93,9 @@ public class P_Pythagorean : PropertyBase
 	}
 }
 
-public class P_Pythagorean_TS : PropertyBase
+public class P_Pythagorean_TS : PropertyBase<AlgebraElementNode>
 {
-	protected override TreeNode InputBaseTopo
+	protected override AlgebraElementNode InputBaseTopo
 	{
 		get {
 			TrigonometricAngleElementNode T = new("prop_pythagorean_2_theta", "theta");
@@ -112,7 +112,7 @@ public class P_Pythagorean_TS : PropertyBase
 		}
 	}
 	
-	protected override TreeNode OutputBaseTopo
+	protected override AlgebraElementNode OutputBaseTopo
 	{
 		get {
 			TrigonometricAngleElementNode T = new("prop_pythagorean_2_theta", "theta");

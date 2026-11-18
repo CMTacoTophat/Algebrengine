@@ -120,7 +120,7 @@ public abstract class OperatorBase<PT, ST1, ST2> : OperatorBase, IConstrainedOut
 
 
 	//Use properties to simplify, as they can handle the necessary logic
-	protected virtual PropertyBase simplificationProperty {get {return new P_Reflexive();}}
+	protected virtual PropertyBase<PT> simplificationProperty {get {return new P_Reflexive<PT>();}}
 	public PT GetSimplified(bool recursive = false)
 	{
 		if (Parent.isEndValue)
@@ -129,7 +129,7 @@ public abstract class OperatorBase<PT, ST1, ST2> : OperatorBase, IConstrainedOut
 		}
 
 		//apply the simplification property
-		PT temp = (PT)simplificationProperty.Apply(Parent, out _);
+		PT temp = simplificationProperty.Apply((PT)Parent, out _);
 
 		if (recursive)
 		{
@@ -200,6 +200,27 @@ public class O_Structure<CompiledElement> : OperatorBase<CompiledElement, TreeNo
 	public O_Structure(TreeNode sn1, TreeNode sn2) : base(sn1, sn2)
 	{
 		
+	}
+}
+
+
+public class O_Equals<ExpType> : OperatorBase<Equation, ExpType, ExpType> where ExpType : TreeNode
+{
+	public override bool Commutative {get {return true;}}
+    public override Type[] Associatives {get {return [typeof(O_Equals<ExpType>)];}}
+    public override string TextRep {get {return " = ";}}
+
+	public O_Equals(ExpType sn1, ExpType sn2) : base(sn1, sn2)
+	{
+		
+	}
+}
+
+public static class Equator
+{
+	public static O_Equals<T> Equate<T>(T exp1, T exp2) where T : TreeNode
+	{
+		return new O_Equals<T>(exp1, exp2);
 	}
 }
 
